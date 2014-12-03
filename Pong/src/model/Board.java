@@ -68,13 +68,21 @@ public abstract class Board {
 
     private void updatePaddlePosition() {
         for (Paddle paddle : paddles) {
-                if (paddle.isMovingUp() && paddle.getTop().y > 0) {
-                    paddle.moveUp();
-                }
-                if (paddle.isMovingDown() && paddle.getTop().y + paddle.getLength() < height) {
-                    paddle.moveDown();
-                }           
+            if (paddle.isMovingUp() && paddleIsNotAgainstTop(paddle)) {
+                paddle.moveUp();
+            }
+            if (paddle.isMovingDown() && paddleIsNotAgainstBottom(paddle)) {
+                paddle.moveDown();
+            }
         }
+    }
+
+    private static boolean paddleIsNotAgainstTop(Paddle paddle) {
+        return paddle.getTop().y > 0;
+    }
+
+    private boolean paddleIsNotAgainstBottom(Paddle paddle) {
+        return paddle.getTop().y + paddle.getLength() < height;
     }
 
     protected void resolveBallCollisions() {
