@@ -28,4 +28,9 @@ public class SinglePlayerController extends BoardController {
         gui.getScoreLabel().setText("Score:" + board.getScore());
     }
 
+    @Override
+    protected void gameOver() {
+        gui.displayGameOver();
+    }
+
 }

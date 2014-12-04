@@ -24,7 +24,7 @@ public class Main {
         final int paddleWidth = 5;
         final int scoreIncrement = 1;
         final int ballDelta = 1;
-        final boolean onePlayerMode = false;
+        final boolean onePlayerMode = true;
 
         if (onePlayerMode) {
             Ball ball = new Ball(

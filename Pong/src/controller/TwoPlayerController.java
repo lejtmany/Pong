@@ -31,6 +31,12 @@ public class TwoPlayerController extends BoardController{
     protected void updateScoreLabel() {
        gui.getScoreLabel().setText(String.format("Player 1: %d    Player 2: %d", board.getLeftPlayerScore(), board.getRightPlayerScore()));
     }
+
+    @Override
+    protected void gameOver() {
+        gui.displayGameOver();
+        //TODO display high scores
+    }
     
     
 }
