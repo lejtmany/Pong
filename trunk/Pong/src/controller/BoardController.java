@@ -55,7 +55,7 @@ abstract public class BoardController {
         updateScoreLabel();
 
         if (board.isGameOver()) {
-            gui.displayGameOver();
+            gameOver();
         } else {
             gui.refreshScreen();
         }
@@ -95,4 +95,6 @@ abstract public class BoardController {
         };
 
     }
+
+    protected abstract void gameOver();
 }
