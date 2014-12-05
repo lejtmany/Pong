@@ -38,9 +38,11 @@ abstract public class BoardController {
             public void run() {
                 if (board.isGameOver()) {
                     gameLoop.cancel();
+                    gameOver();
+                }else{
+                    updateView();
                 }
                 updateBoard();
-                updateView();
             }
         },
                 0,
@@ -53,12 +55,7 @@ abstract public class BoardController {
 
     public void updateView() {
         updateScoreLabel();
-
-        if (board.isGameOver()) {
-            gameOver();
-        } else {
-            gui.refreshScreen();
-        }
+        gui.refreshScreen();
     }
 
     protected abstract void updateScoreLabel();
