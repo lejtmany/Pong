@@ -1,6 +1,6 @@
 package controller;
 
-import model.SinglePlayerBoard;
+import model.SinglePlayerGame;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import model.Ball;
 import model.HighScoreRecordKeeper;
 import model.Paddle;
 import model.RecordKeeper;
-import model.TwoPlayerBoard;
+import model.TwoPlayerGame;
 import view.PongGUI;
 
 /**
@@ -31,9 +31,9 @@ public class Main {
         final int paddleWidth = 5;
         final int scoreIncrement = 1;
         final int ballDelta = 1;
-        final boolean onePlayerMode = true;
+        final boolean onePlayerMode = false;
         final String HIGHSCORES_FILE =
-                "C:\\Users\\BenForgy\\Documents\\NetBeansProjects\\trunk\\Pong\\cache\\highscores.bin";
+                "Pong\\..\\cache\\highscores.bin";
 
 
         if (onePlayerMode) {
@@ -43,7 +43,7 @@ public class Main {
             Paddle paddle = new Paddle(
                     new Point(20, gameHeight/2),
                     paddleLength, paddleWidth, 1);
-            SinglePlayerBoard spb = new SinglePlayerBoard(500, 500, 1, ball, paddle);
+            SinglePlayerGame spb = new SinglePlayerGame(500, 500, 1, ball, paddle);
             
             PongGUI pongGui = new PongGUI(spb);
             
@@ -66,9 +66,9 @@ public class Main {
                     new Point(20, gameHeight/2),
                     paddleLength, paddleWidth, 1);
             Paddle paddle2 = new Paddle(
-                    new Point(gameWidth - (20 + paddleWidth), gameHeight/2),
+                    new Point(gameWidth - (20 + paddleWidth), gameHeight - 163),
                     paddleLength, paddleWidth, 1);
-            TwoPlayerBoard tpb = new TwoPlayerBoard(500, 500, 1, 3, ball, paddle1, paddle2);
+            TwoPlayerGame tpb = new TwoPlayerGame(500, 500, 1, 3, ball, paddle1, paddle2);
             PongGUI pongGui = new PongGUI(tpb);
             TwoPlayerController tpc = new TwoPlayerController(tpb, pongGui);
             tpc.start();

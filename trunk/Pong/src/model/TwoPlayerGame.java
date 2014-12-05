@@ -6,26 +6,27 @@
 package model;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  *
  * @author Miriam
  */
-public class TwoPlayerBoard extends Board {
+public class TwoPlayerGame extends ModelMain {
 
     private int rightPlayerScore, leftPlayerScore;
     private final double ballSpeedUp = .10;
     private final int gameUntil;
 
-    public TwoPlayerBoard(int width, int height, int scoreIncrementAmount, int gameUntil, Ball ball, Paddle paddle1, Paddle paddle2) {
+    public TwoPlayerGame(int width, int height, int scoreIncrementAmount, int gameUntil, Ball ball, Paddle paddle1, Paddle paddle2) {
         super(width, height, scoreIncrementAmount, ball, paddle1, paddle2);
         paddle2.setRightPaddle(true);
         this.gameUntil = gameUntil;
     }
 
     @Override
-    protected void onHitPaddle() {
-        ball.setDeltaX( -ball.getDeltaX()); //negative
+    protected void onHitPaddle(Paddle paddle) {
+        handleBallPaddleCollision(ball, paddle);
         increaseBallSpeed();
         System.out.println("Ball delta x: " + ball.getDeltaX());
     }

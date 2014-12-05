@@ -1,17 +1,17 @@
 package model;
 
 
-public class SinglePlayerBoard extends Board {
+public class SinglePlayerGame extends ModelMain {
 
     private int score;
 
-    public SinglePlayerBoard(int width, int height, int scoreIncrementAmount, Ball ball, Paddle paddle1) {
+    public SinglePlayerGame(int width, int height, int scoreIncrementAmount, Ball ball, Paddle paddle1) {
         super(width, height, scoreIncrementAmount, ball, paddle1);
     }
 
     @Override
-    protected void onHitPaddle() {
-        onHitRightWall();
+    protected void onHitPaddle(Paddle paddle) {
+        handleBallPaddleCollision(ball, paddle);
         incrementScore();
     }
 

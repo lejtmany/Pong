@@ -29,6 +29,7 @@ public class HighScoreRecordKeeper implements RecordKeeper{
     public void setPath(String fileName) throws IOException{
         file = new File(fileName);
         if(!file.exists() || file.length() < 12){
+            
             setUpDefaultScores();
         }
     }
