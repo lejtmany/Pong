@@ -32,8 +32,8 @@ public class Main {
         final int scoreIncrement = 1;
         final int ballDelta = 1;
         final boolean onePlayerMode = true;
-        final File HIGHSCORES_FILE =
-                new File("C:\\Users\\BenForgy\\Documents\\NetBeansProjects\\trunk\\Pong\\cache\\highscores.bin");
+        final String HIGHSCORES_FILE =
+                "C:\\Users\\BenForgy\\Documents\\NetBeansProjects\\trunk\\Pong\\cache\\highscores.bin";
 
 
         if (onePlayerMode) {
