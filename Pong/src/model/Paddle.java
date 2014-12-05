@@ -1,46 +1,44 @@
 package model;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  * @author Yosef Friedman & Yosef Lejtman
  */
 public class Paddle {
 
-    private final Point top;
-    private final int length, width, deltaY;
+    private final int deltaY;
     private boolean isRightPaddle;
     private boolean isMovingDown;
     private boolean isMovingUp;
+    private Rectangle body;
 
     public Paddle(Point top, int length, int width, int deltaY) {
-        this.top = top;
-        this.length = length;
-        this.width = width;
         this.deltaY = deltaY;
+        body = new Rectangle(top.x, top.y, width, length);
     }
 
-    public Point getTop() {
-        return new Point(top);
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void moveDown() {
-        top.translate(0, deltaY);
-    }
-
-    public void moveUp() {
-        top.translate(0, -deltaY);
+    public Rectangle getBody() {
+        return new Rectangle(body);
     }
 
     /**
      * @return the width
      */
     public int getWidth() {
-        return width;
+        return body.width;
+    }
+    public int getHeight() {
+        return body.height;
+    }
+
+    public void moveDown() {
+        body.translate(0, deltaY);
+    }
+
+    public void moveUp() {
+        body.translate(0, -deltaY);
     }
 
     /**

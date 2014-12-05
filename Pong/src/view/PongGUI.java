@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import model.Board;
+import model.ModelMain;
 
 /**
  * @author Yosef Friedman & Yosef Lejtman
@@ -22,7 +22,7 @@ public class PongGUI {
     private final JPanel scorePanel;
     
     
-    public PongGUI(Board board) {
+    public PongGUI(ModelMain board) {
         final int scoreFontSize = 20;
         final int scorePanelHeight = scoreFontSize + 10;
         

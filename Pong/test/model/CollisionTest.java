@@ -16,9 +16,9 @@ public class CollisionTest {
         int deltaX = 1;
         Ball ball = new Ball(new Point(9,2), 1, deltaX, 0);
         Paddle paddle = new Paddle(new Point(2,0),3,1);        
-        Board board = new Board(10,10,ball,paddle,1);
-        SinglePlayerBoard bc =
-                new SinglePlayerBoard(board, mock(PongGUI.class));
+        ModelMain board = new ModelMain(10,10,ball,paddle,1);
+        SinglePlayerGame bc =
+                new SinglePlayerGame(board, mock(PongGUI.class));
         bc.updateBoard();
         Assert.assertTrue(ball.getDeltaX() == -deltaX);
     }
@@ -28,9 +28,9 @@ public class CollisionTest {
         int deltaX = -1;
         Ball ball = new Ball(new Point(1,2), 1, deltaX, 0);
         Paddle paddle = new Paddle(new Point(2,0),3,1);        
-        Board board = new Board(10,10,ball,paddle,1);
-        SinglePlayerBoard bc =
-                new SinglePlayerBoard(board, mock(PongGUI.class));
+        ModelMain board = new ModelMain(10,10,ball,paddle,1);
+        SinglePlayerGame bc =
+                new SinglePlayerGame(board, mock(PongGUI.class));
         bc.updateBoard();
         Assert.assertTrue(board.isGameOver());
     }
@@ -40,9 +40,9 @@ public class CollisionTest {
         int deltaY = -1;
         Ball ball = new Ball(new Point(1,2), 1, 0, deltaY);
         Paddle paddle = new Paddle(new Point(2,0),3,1);         
-        Board board = new Board(10,10,ball,paddle,1);
-        SinglePlayerBoard bc =
-                new SinglePlayerBoard(board, mock(PongGUI.class));
+        ModelMain board = new ModelMain(10,10,ball,paddle,1);
+        SinglePlayerGame bc =
+                new SinglePlayerGame(board, mock(PongGUI.class));
         bc.updateBoard();
         Assert.assertTrue(ball.getDeltaY() == -deltaY);
     }
@@ -53,9 +53,9 @@ public class CollisionTest {
         int scoreIncrement = 2;
         Ball ball = new Ball(new Point(3,1), 1, deltaX, 0);
         Paddle paddle = new Paddle(new Point(2,0), 5, 4);        
-        Board board = new Board(10,10,ball,paddle,scoreIncrement);
-        SinglePlayerBoard bc =
-                new SinglePlayerBoard(board, mock(PongGUI.class));
+        ModelMain board = new ModelMain(10,10,ball,paddle,scoreIncrement);
+        SinglePlayerGame bc =
+                new SinglePlayerGame(board, mock(PongGUI.class));
         bc.updateBoard();
         Assert.assertTrue(board.getBall().getDeltaX() ==  -deltaX); 
         Assert.assertTrue(board.getScore() == scoreIncrement);

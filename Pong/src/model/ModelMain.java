@@ -1,7 +1,8 @@
 package model;
 
 import java.awt.Point;
-import java.awt.geom.Line2D;
+import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * @author Yosef Friedman & Yosef Lejtman
  */
-public abstract class Board {
+public abstract class ModelMain {
 
     protected final Ball ball;
 
@@ -21,9 +22,9 @@ public abstract class Board {
 
     protected boolean isGameOver;
 
-    private Point oldCenter;
+    protected Point oldCenter;
 
-    public Board(int width, int height, int scoreIncrementAmount, Ball ball, Paddle... paddles) {
+    public ModelMain(int width, int height, int scoreIncrementAmount, Ball ball, Paddle... paddles) {
         this.width = width;
         this.height = height;
         this.ball = ball;
@@ -68,10 +69,10 @@ public abstract class Board {
 
     private void updatePaddlePosition() {
         for (Paddle paddle : paddles) {
-                if (paddle.isMovingUp() && paddle.getTop().y > 0) {
+                if (paddle.isMovingUp() && paddle.getBody().y > 0) {
                     paddle.moveUp();
                 }
-                if (paddle.isMovingDown() && paddle.getTop().y + paddle.getLength() < height) {
+                if (paddle.isMovingDown() && paddle.getBody().y + paddle.getHeight() < height) {
                     paddle.moveDown();
                 }           
         }
@@ -88,11 +89,28 @@ public abstract class Board {
             onHitLeftWall();
         }
         paddles.stream().filter((paddle) -> (isHittingPaddle(paddle))).forEach((_item) -> {
-            onHitPaddle();
+            System.out.println("BALL: " + ball.getCenter());
+            System.out.println("PADDLE: " + _item.getBody());
+            onHitPaddle(_item);
         });
     }
+    
+    protected void handleBallPaddleCollision(Ball ball, Paddle paddle){
+        ball.setCenter(oldCenter);
+        
+        Rectangle paddleBody = paddle.getBody();
+        
+        if(ball.getCenter().y < paddleBody.y || 
+                ball.getCenter().y > paddleBody.y + paddleBody.height){
+            ball.setDeltaY(-ball.getDeltaY());
+            System.out.println("TOP / BOTTOM");
+        }
+        else{
+            ball.setDeltaX( -ball.getDeltaX()); //negative
+        }
+    }
 
-    protected abstract void onHitPaddle();
+    protected abstract void onHitPaddle(Paddle paddle);
 
     protected abstract void onHitLeftWall();
 
@@ -124,17 +142,11 @@ public abstract class Board {
     protected boolean isHittingPaddle(Paddle paddle) {
         //check to make sure only hits paddle once
         if ((paddle.isRightPaddle() && ball.getDeltaX() > 0) || (!paddle.isRightPaddle() && ball.getDeltaX() < 0)) {
-            Line2D.Float lineBetweenTwoCenters = new Line2D.Float(
-                    oldCenter,
-                    new Point(
-                            ball.getCenter().x - ball.getRadius(),
-                            ball.getCenter().y));
-            Line2D.Float paddleLine = new Line2D.Float(
-                    paddle.getTop(),
-                    new Point(
-                            paddle.getTop().x,
-                            paddle.getTop().y + paddle.getLength()));
-            return lineBetweenTwoCenters.intersectsLine(paddleLine);
+            Ellipse2D ballBody = new Ellipse2D.Float(
+                    ball.getCenter().x, ball.getCenter().y, 
+                    ball.getRadius(), ball.getRadius());
+            
+            return ballBody.intersects(paddle.getBody());
         } else {
             return false;
         }

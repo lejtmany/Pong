@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import model.Paddle;
 import model.Player;
 import model.RecordKeeper;
-import model.SinglePlayerBoard;
+import model.SinglePlayerGame;
 import view.PongGUI;
 
 public class SinglePlayerController extends BoardController {
 
-    SinglePlayerBoard board;
+    SinglePlayerGame board;
     RecordKeeper recordKeeper;
     
 
-    public SinglePlayerController(SinglePlayerBoard board, PongGUI gui, RecordKeeper recordKeeper) {
+    public SinglePlayerController(SinglePlayerGame board, PongGUI gui, RecordKeeper recordKeeper) {
         super(board, gui);
         this.board = board;
         this.recordKeeper = recordKeeper;

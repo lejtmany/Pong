@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.List;
 import model.Ball;
 import model.Paddle;
@@ -24,18 +25,13 @@ public class PongComponentDrawer {
     
      public void draw(List<Paddle> paddles, Graphics2D g){
         for(Paddle paddle : paddles){
-            drawPaddle(paddle, g, paddle.isRightPaddle());
+            drawPaddle(paddle, g);
         }
     }
      
-    private void drawPaddle(Paddle paddle, Graphics2D g, boolean isRightPaddle) {
+    private void drawPaddle(Paddle paddle, Graphics2D g) {
+        Rectangle paddleBody = paddle.getBody();
         g.setColor(Color.white);             
-        g.fillRect(getTopX(isRightPaddle, paddle), paddle.getTop().y, paddle.getWidth(), paddle.getLength());
+        g.fillRect(paddleBody.x ,paddleBody.y, paddle.getWidth(), paddle.getHeight());
     }
-
-    private int getTopX(boolean isRightPaddle, Paddle paddle) {
-        int topX = (isRightPaddle) ? paddle.getTop().x  : paddle.getTop().x - paddle.getWidth();
-        return topX;
-    }
-
 }
