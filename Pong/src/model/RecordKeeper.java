@@ -13,7 +13,7 @@ public interface RecordKeeper {
     
     //Pointer to record bin set in constructor
     
-    void setFile(File _file) throws IOException;
+    void setPath(String path) throws IOException;
     
     /**
      * @return an ORDERED (lowest score to highest) list of the players.
