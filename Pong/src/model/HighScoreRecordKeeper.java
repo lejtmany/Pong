@@ -18,16 +18,16 @@ import java.util.logging.Logger;
 public class HighScoreRecordKeeper implements RecordKeeper{
     
     private File file;
-    private int numOfScores;
+    private final int numOfScores;
     
-    public HighScoreRecordKeeper(File _file, int numberOfScores) throws IOException{
-        setFile(_file);
+    public HighScoreRecordKeeper(String fileName, int numberOfScores) throws IOException{
+        setPath(fileName);
         numOfScores = numberOfScores;
     }
     
     @Override
-    public final void setFile(File _file) throws IOException{
-        file = _file;
+    public void setPath(String fileName) throws IOException{
+        file = new File(fileName);
         if(!file.exists() || file.length() < 12){
             setUpDefaultScores();
         }
