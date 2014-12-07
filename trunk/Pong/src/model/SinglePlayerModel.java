@@ -24,8 +24,7 @@ public class SinglePlayerModel extends ModelMain {
 
     @Override
     protected void onHitRightWall() {
-        ball.setDeltaX(
-                -ball.getDeltaX()); //negative
+        ball.setDeltaX(-ball.getDeltaX());
     }
 
     @Override
