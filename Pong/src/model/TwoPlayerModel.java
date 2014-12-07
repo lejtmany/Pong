@@ -5,30 +5,33 @@
  */
 package model;
 
+import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Rectangle;
 
 /**
  *
  * @author Miriam
  */
-public class TwoPlayerGame extends ModelMain {
+public class TwoPlayerModel extends ModelMain {
 
     private int rightPlayerScore, leftPlayerScore;
     private final double ballSpeedUp = .10;
-    private final int gameUntil;
+    private int gameUntil = 12;
 
-    public TwoPlayerGame(int width, int height, int scoreIncrementAmount, int gameUntil, Ball ball, Paddle paddle1, Paddle paddle2) {
-        super(width, height, scoreIncrementAmount, ball, paddle1, paddle2);
-        paddle2.setRightPaddle(true);
-        this.gameUntil = gameUntil;
+    public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle paddle1, Paddle paddle2) {
+        super(gameDimensions, ball, paddle1, paddle2);
+        paddle2.setRightPaddle(true); 
     }
+    
+    public void setGameUntilScore(int score){
+        gameUntil = score;
+    }
+    
 
     @Override
     protected void onHitPaddle(Paddle paddle) {
-        handleBallPaddleCollision(ball, paddle);
+        super.onHitPaddle(paddle);
         increaseBallSpeed();
-        System.out.println("Ball delta x: " + ball.getDeltaX());
     }
 
     private void increaseBallSpeed() {
@@ -81,7 +84,8 @@ public class TwoPlayerGame extends ModelMain {
     }
 
     private void resetBall() {
-        ball.setCenter(new Point(super.width/2, super.height/2));
+        Dimension bounds = super.getGameDimensions();
+        ball.setCenter(new Point(bounds.width/2, bounds.height/2));
     }
 
 }

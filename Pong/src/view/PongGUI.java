@@ -22,36 +22,37 @@ public class PongGUI {
     private final JPanel scorePanel;
     
     
-    public PongGUI(ModelMain board) {
+    public PongGUI(ModelMain pongGame) {
         final int scoreFontSize = 20;
         final int scorePanelHeight = scoreFontSize + 10;
+        Dimension gameDimensions = pongGame.getGameDimensions();
         
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(board.getWidth(), board.getHeight() + scorePanelHeight);
+        frame.setSize(gameDimensions.width, gameDimensions.height + scorePanelHeight);
         frame.setResizable(false);
         frame.setLayout(new BorderLayout());
         
-        panel = new PongPanel(board);
-        panel.setSize(board.getWidth(), board.getHeight());
-        panel.setPreferredSize(new Dimension(board.getWidth(), board.getHeight()));
+        panel = new PongPanel(pongGame);
+        panel.setSize(gameDimensions.width, gameDimensions.height);
+        panel.setPreferredSize(new Dimension(gameDimensions.width, gameDimensions.height));
         panel.setBackground(Color.black);
         panel.setFocusable(true);
         panel.setBorder(BorderFactory.createLineBorder(Color.white, 2));
         frame.add(panel, BorderLayout.CENTER);
                      
         scorePanel = new JPanel();
-        scorePanel.setSize(board.getWidth(), scorePanelHeight);
+        scorePanel.setSize(gameDimensions.width, scorePanelHeight);
         scorePanel.setPreferredSize(
-                new Dimension(board.getWidth(), scorePanelHeight));
+                new Dimension(gameDimensions.width, scorePanelHeight));
         scorePanel.setBackground(Color.black);
         frame.add(scorePanel, BorderLayout.NORTH);
         
                
         scoreLabel = new JLabel();
-        scoreLabel.setSize(board.getWidth(),scorePanelHeight);
+        scoreLabel.setSize(gameDimensions.width,scorePanelHeight);
         scoreLabel.setPreferredSize(
-                new Dimension(board.getWidth(), scorePanelHeight));
+                new Dimension(gameDimensions.width, scorePanelHeight));
         scoreLabel.setFont(
                 new Font(Font.SANS_SERIF, Font.BOLD, scoreFontSize));
         scoreLabel.setBackground(Color.black);

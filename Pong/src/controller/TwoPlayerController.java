@@ -4,16 +4,16 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import model.Paddle;
-import model.TwoPlayerGame;
+import model.TwoPlayerModel;
 import view.PongGUI;
 
 
 public class TwoPlayerController extends BoardController{
     
-    TwoPlayerGame board;
+    TwoPlayerModel board;
 
     
-    public TwoPlayerController(TwoPlayerGame board, PongGUI gui) {
+    public TwoPlayerController(TwoPlayerModel board, PongGUI gui) {
         super(board, gui);
         this.board = board;
         addPaddleKeyListeners();
