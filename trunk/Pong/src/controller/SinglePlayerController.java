@@ -59,8 +59,7 @@ public class SinglePlayerController extends BoardController {
                 highScores.set(0, createPlayer(playerScore));
                 recordKeeper.updateRecords(highScores);
             }
-            
-              
+                        
             StringBuilder sb = new StringBuilder();
             for(Player p : recordKeeper.getRecords())
                 sb.insert(0, String.format("%s : %d%n", p.name, p.score));

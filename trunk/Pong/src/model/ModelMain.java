@@ -109,14 +109,18 @@ public abstract class ModelMain {
         
         Rectangle paddleBody = paddle.getBody();
         
-        if(ball.getCenter().y < paddleBody.y || 
-                ball.getCenter().y > paddleBody.y + paddleBody.height){
+        if(isHittingOffSideOfPaddle(paddleBody)){
             ball.setDeltaY(-ball.getDeltaY());
             System.out.println("TOP / BOTTOM");
         }
         else{
             ball.setDeltaX( -ball.getDeltaX()); //negative
         }
+    }
+
+    private boolean isHittingOffSideOfPaddle(Rectangle paddleBody) {
+        return ball.getCenter().y < paddleBody.y || 
+                ball.getCenter().y > paddleBody.y + paddleBody.height;
     }
 
     protected abstract void onHitLeftWall();
