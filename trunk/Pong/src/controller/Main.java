@@ -57,6 +57,7 @@ public class Main {
         
         Dimension gameBounds = new Dimension(500, 500);
         Ball ball = new Ball(new Point(gameBounds.height/2, gameBounds.height/2), ballRadius);
+        double paddleDelta = 2.5;
         ball.setDeltaX(ballDeltaX);
         ball.setDeltaY(ballDeltaY);
         Paddle[] paddles = new Paddle[2];

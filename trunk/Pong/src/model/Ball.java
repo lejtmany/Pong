@@ -20,8 +20,8 @@ public class Ball{
     }
     
     public void updatePosition(double amount) {
-        center.x = center.x + (amount * deltaX);
-        center.y = center.y + (amount * deltaY);
+        center.x += (amount * deltaX);
+        center.y += (amount * deltaY);
     }
     
     public Point getCenter() {
