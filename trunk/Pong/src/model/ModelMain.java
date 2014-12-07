@@ -152,7 +152,7 @@ public abstract class ModelMain {
 
     protected boolean isHittingPaddle(Paddle paddle) {
         //check to make sure only hits paddle once
-        if ((paddle.isRightPaddle() && ball.getDeltaX() > 0) || (!paddle.isRightPaddle() && ball.getDeltaX() < 0)) {
+        if (ballIsMovingTowardsPaddle(paddle)) {
             Ellipse2D ballBody = new Ellipse2D.Float(
                     ball.getCenter().x, ball.getCenter().y, 
                     ball.getRadius(), ball.getRadius());
@@ -161,6 +161,10 @@ public abstract class ModelMain {
         } else {
             return false;
         }
+    }
+
+    private boolean ballIsMovingTowardsPaddle(Paddle paddle) {
+        return (paddle.isRightPaddle() && ball.getDeltaX() > 0) || (!paddle.isRightPaddle() && ball.getDeltaX() < 0);
     }
 
 }
