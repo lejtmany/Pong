@@ -109,7 +109,7 @@ public abstract class ModelMain {
         
         Rectangle paddleBody = paddle.getBody();
         
-        if(isHittingOffSideOfPaddle(paddleBody)){
+        if(false && isHittingOffSideOfPaddle(paddleBody)){
             ball.setDeltaY(-ball.getDeltaY());
             System.out.println("TOP / BOTTOM");
         }
@@ -165,6 +165,8 @@ public abstract class ModelMain {
 
     private boolean ballIsMovingTowardsPaddle(Paddle paddle) {
         return (paddle.isRightPaddle() && ball.getDeltaX() > 0) || (!paddle.isRightPaddle() && ball.getDeltaX() < 0);
+//        boolean isMovingTowardsPaddleVertically =  (paddle.getBody().y > ball.getCenter().y && ball.getDeltaY() > 0) || (paddle.getBody().y + paddle.getHeight() < ball.getCenter().y && ball.getDeltaY() < 0);
+//        return isMovingTowardsPaddleHorizontally && isMovingTowardsPaddleVertically;
     }
 
 }
