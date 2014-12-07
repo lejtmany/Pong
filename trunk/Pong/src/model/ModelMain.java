@@ -24,6 +24,7 @@ public abstract class ModelMain {
     protected boolean isGameOver;
 
     private Point oldCenter;
+    private double speedFactor = 1;
 
     public ModelMain(Dimension gameDimentions, Ball ball, Paddle... paddles) {
         this.ball = ball;
@@ -62,9 +63,17 @@ public abstract class ModelMain {
 
     private void updateBallPosition() {
         oldCenter = ball.getCenter();
-        ball.updatePosition();
+        ball.updatePosition(speedFactor);
         resolveBallCollisions();
     }
+    
+    protected void speedUpBallBy(double amount){
+        speedFactor += amount;
+    }
+    protected void resetBallSpeed(){
+        speedFactor = 1;
+    }
+    
 
     private void updatePaddlePosition() {
         for (Paddle paddle : paddles) {
@@ -96,7 +105,7 @@ public abstract class ModelMain {
 
 
     protected void onHitPaddle(Paddle paddle){
-        ball.setCenter(oldCenter);
+        ball.setCenter(oldCenter.x, oldCenter.y);
         
         Rectangle paddleBody = paddle.getBody();
         
