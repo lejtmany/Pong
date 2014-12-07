@@ -16,7 +16,6 @@ import java.awt.Rectangle;
 public class TwoPlayerModel extends ModelMain {
 
     private int rightPlayerScore, leftPlayerScore;
-    private final double ballSpeedUp = .10;
     private int gameUntil = 12;
 
     public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle paddle1, Paddle paddle2) {
@@ -26,13 +25,6 @@ public class TwoPlayerModel extends ModelMain {
     
     public void setGameUntilScore(int score){
         gameUntil = score;
-    }
-    
-
-    @Override
-    protected void onHitPaddle(Paddle paddle) {
-        super.onHitPaddle(paddle);
-        speedUpBallBy(ballSpeedUp);
     }
 
 

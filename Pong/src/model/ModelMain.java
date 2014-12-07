@@ -25,6 +25,9 @@ public abstract class ModelMain {
 
     private Point oldCenter;
     private double speedFactor = 1;
+    private double defaultSpeedFactor = 1;
+    private final double ballSpeedUpFactor = .001;
+
 
     public ModelMain(Dimension gameDimentions, Ball ball, Paddle... paddles) {
         this.ball = ball;
@@ -34,6 +37,10 @@ public abstract class ModelMain {
     
     public void setScoreIncrementAmount(int newAmount){
         scoreIncrementAmount = newAmount;
+    }
+    public void setDefaultSpeedFactor(double factor){
+        defaultSpeedFactor = factor;
+        speedFactor = defaultSpeedFactor;
     }
 
     public Ball getBall() {
@@ -71,7 +78,7 @@ public abstract class ModelMain {
         speedFactor += amount;
     }
     protected void resetBallSpeed(){
-        speedFactor = 1;
+        speedFactor = defaultSpeedFactor;
     }
     
 
@@ -106,7 +113,7 @@ public abstract class ModelMain {
 
     protected void onHitPaddle(Paddle paddle){
         ball.setCenter(oldCenter.x, oldCenter.y);
-        
+        speedUpBallBy(ballSpeedUpFactor);
         ball.setDeltaX( -ball.getDeltaX()); //negative
     }
 
