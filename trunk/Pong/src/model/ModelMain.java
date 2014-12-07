@@ -107,21 +107,9 @@ public abstract class ModelMain {
     protected void onHitPaddle(Paddle paddle){
         ball.setCenter(oldCenter.x, oldCenter.y);
         
-        Rectangle paddleBody = paddle.getBody();
-        
-        if(false && isHittingOffSideOfPaddle(paddleBody)){
-            ball.setDeltaY(-ball.getDeltaY());
-            System.out.println("TOP / BOTTOM");
-        }
-        else{
-            ball.setDeltaX( -ball.getDeltaX()); //negative
-        }
+        ball.setDeltaX( -ball.getDeltaX()); //negative
     }
 
-    private boolean isHittingOffSideOfPaddle(Rectangle paddleBody) {
-        return ball.getCenter().y < paddleBody.y || 
-                ball.getCenter().y > paddleBody.y + paddleBody.height;
-    }
 
     protected abstract void onHitLeftWall();
 
@@ -164,9 +152,8 @@ public abstract class ModelMain {
     }
 
     private boolean ballIsMovingTowardsPaddle(Paddle paddle) {
-        return (paddle.isRightPaddle() && ball.getDeltaX() > 0) || (!paddle.isRightPaddle() && ball.getDeltaX() < 0);
-//        boolean isMovingTowardsPaddleVertically =  (paddle.getBody().y > ball.getCenter().y && ball.getDeltaY() > 0) || (paddle.getBody().y + paddle.getHeight() < ball.getCenter().y && ball.getDeltaY() < 0);
-//        return isMovingTowardsPaddleHorizontally && isMovingTowardsPaddleVertically;
+        return (paddle.isRightPaddle() && ball.getDeltaX() > 0) 
+                || (!paddle.isRightPaddle() && ball.getDeltaX() < 0);
     }
 
 }
