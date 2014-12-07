@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
@@ -16,36 +17,34 @@ public abstract class ModelMain {
 
     List<Paddle> paddles = new ArrayList<>();
 
-    protected final int width, height;
+    protected final Dimension gameDimensions;
 
-    protected final int scoreIncrementAmount;
+    protected int scoreIncrementAmount = 1;
 
     protected boolean isGameOver;
 
-    protected Point oldCenter;
+    private Point oldCenter;
 
-    public ModelMain(int width, int height, int scoreIncrementAmount, Ball ball, Paddle... paddles) {
-        this.width = width;
-        this.height = height;
+    public ModelMain(Dimension gameDimentions, Ball ball, Paddle... paddles) {
         this.ball = ball;
-        this.scoreIncrementAmount = scoreIncrementAmount;
         this.paddles.addAll(Arrays.asList(paddles));
+        this.gameDimensions = new Dimension(gameDimentions);
+    }
+    
+    public void setScoreIncrementAmount(int newAmount){
+        scoreIncrementAmount = newAmount;
     }
 
     public Ball getBall() {
-        return new Ball(ball.getCenter(), ball.getRadius(), ball.getDeltaX(), ball.getDeltaY());
+        return new Ball(ball.getCenter(), ball.getRadius());
     }
 
     public List<Paddle> getPaddles() {
         return new ArrayList<>(paddles);
     }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    
+    public Dimension getGameDimensions(){
+        return new Dimension(gameDimensions);
     }
 
     public boolean isGameOver() {
@@ -72,7 +71,7 @@ public abstract class ModelMain {
                 if (paddle.isMovingUp() && paddle.getBody().y > 0) {
                     paddle.moveUp();
                 }
-                if (paddle.isMovingDown() && paddle.getBody().y + paddle.getHeight() < height) {
+                if (paddle.isMovingDown() && paddle.getBody().y + paddle.getHeight() < gameDimensions.height) {
                     paddle.moveDown();
                 }           
         }
@@ -88,14 +87,15 @@ public abstract class ModelMain {
         if (isHittingLeftWall()) {
             onHitLeftWall();
         }
-        paddles.stream().filter((paddle) -> (isHittingPaddle(paddle))).forEach((_item) -> {
+        paddles.stream().filter((paddle) -> (isHittingPaddle(paddle))).forEach((paddle) -> {
             System.out.println("BALL: " + ball.getCenter());
-            System.out.println("PADDLE: " + _item.getBody());
-            onHitPaddle(_item);
+            System.out.println("PADDLE: " + paddle.getBody());
+            onHitPaddle(paddle);
         });
     }
-    
-    protected void handleBallPaddleCollision(Ball ball, Paddle paddle){
+
+
+    protected void onHitPaddle(Paddle paddle){
         ball.setCenter(oldCenter);
         
         Rectangle paddleBody = paddle.getBody();
@@ -109,8 +109,6 @@ public abstract class ModelMain {
             ball.setDeltaX( -ball.getDeltaX()); //negative
         }
     }
-
-    protected abstract void onHitPaddle(Paddle paddle);
 
     protected abstract void onHitLeftWall();
 
@@ -127,12 +125,12 @@ public abstract class ModelMain {
         boolean isHittingTopWall
                 = ball.getCenter().y - ball.getRadius() <= 0;
         boolean isHittingBottomWall
-                = ball.getCenter().y + ball.getRadius() >= height;
+                = ball.getCenter().y + ball.getRadius() >= gameDimensions.height;
         return isHittingTopWall || isHittingBottomWall;
     }
 
     protected boolean isHittingRightWall() {
-        return ball.getCenter().x + ball.getRadius() >= width;
+        return ball.getCenter().x + ball.getRadius() >= gameDimensions.width;
     }
 
     protected boolean isHittingLeftWall() {
