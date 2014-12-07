@@ -7,6 +7,7 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  *
@@ -31,14 +32,9 @@ public class TwoPlayerModel extends ModelMain {
     @Override
     protected void onHitPaddle(Paddle paddle) {
         super.onHitPaddle(paddle);
-        increaseBallSpeed();
+        speedUpBallBy(ballSpeedUp);
     }
 
-    private void increaseBallSpeed() {
-        double ballDeltaSpeed = ballSpeedUp / 2 + Math.abs(ball.getDeltaX());
-        ball.setDeltaX(ballDeltaSpeed * ((ball.getDeltaX() < 0) ? -1 : 1));
-        ball.setDeltaY(ballDeltaSpeed * ((ball.getDeltaY() < 0) ? -1 : 1));
-    }
 
     @Override
     protected void onHitLeftWall() {       
@@ -47,7 +43,7 @@ public class TwoPlayerModel extends ModelMain {
         }
         else{
             incrementRightScore();
-            resetBall();
+            resetBall(paddles.get(0));
         }       
     }
 
@@ -58,7 +54,7 @@ public class TwoPlayerModel extends ModelMain {
         }
         else{
             incrementLeftScore();
-            resetBall();
+            resetBall(paddles.get(1));
         }       
     }
 
@@ -83,9 +79,10 @@ public class TwoPlayerModel extends ModelMain {
         leftPlayerScore += scoreIncrementAmount;
     }
 
-    private void resetBall() {
-        Dimension bounds = super.getGameDimensions();
-        ball.setCenter(new Point(bounds.width/2, bounds.height/2));
+    private void resetBall(Paddle loser) {
+        Rectangle paddleBody = loser.getBody();
+        ball.setCenter(gameDimensions.width/2, paddleBody.y + (paddleBody.height/2));
+        resetBallSpeed();
     }
 
 }
