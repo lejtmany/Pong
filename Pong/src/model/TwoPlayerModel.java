@@ -81,7 +81,8 @@ public class TwoPlayerModel extends ModelMain {
 
     private void resetBall(Paddle loser) {
         Rectangle paddleBody = loser.getBody();
-        ball.setCenter(gameDimensions.width/2, paddleBody.y + (paddleBody.height/2));
+        double startingX = (loser.isRightPaddle()) ?  gameDimensions.width/3 : (gameDimensions.width - gameDimensions.width/3);
+        ball.setCenter(startingX , (gameDimensions.height/2));
         resetBallSpeed();
     }
 
