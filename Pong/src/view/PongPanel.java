@@ -5,9 +5,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import model.AbstractModel;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
+
 public class PongPanel extends JPanel {
     
     private final AbstractModel board;

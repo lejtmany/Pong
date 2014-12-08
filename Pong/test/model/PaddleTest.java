@@ -16,7 +16,6 @@ public class PaddleTest {
 
     @Test
     public void testMoveDown() {
-        System.out.println("moveDown");
         defaultPaddle.setSpeed(1);
         defaultPaddle.moveDown();
         assertEquals(2, defaultPaddle.getY());
@@ -24,7 +23,6 @@ public class PaddleTest {
 
     @Test
     public void testMoveUp() {
-        System.out.println("moveDown");
         defaultPaddle.setSpeed(1);
         defaultPaddle.moveUp();
         assertEquals(0, defaultPaddle.getY());

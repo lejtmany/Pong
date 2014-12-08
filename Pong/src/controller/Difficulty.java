@@ -7,8 +7,8 @@ public enum Difficulty {
     Expert(2.5,"Pong\\..\\cache\\highscores_Expert.hsf");
     
     
-    private String highScoreFileName;
-    private double speedFactor;
+    private final String highScoreFileName;
+    private final double speedFactor;
     
     Difficulty(double speedFactor, String highScoreFileName){
         this.speedFactor = speedFactor;

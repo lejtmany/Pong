@@ -14,9 +14,7 @@ import javax.swing.SwingConstants;
 import model.AbstractModel;
 import model.RecordKeeper;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
+
 public class PongGUI {
 
     private final JFrame frame;
