@@ -9,34 +9,33 @@ public class TwoPlayerModel extends AbstractModel {
 
     public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle paddle1, Paddle paddle2) {
         super(gameDimensions, ball, paddle1, paddle2);
-        paddle2.setRightPaddle(true); 
+        paddle2.setRightPaddle(true);
     }
-    
-    public void setGameUntilScore(int score){
+
+    public void setGameUntilScore(int score) {
         gameUntil = score;
     }
 
-
     @Override
-    protected void onHitLeftWall() {       
-        if (getRightPlayerScore() == gameUntil - 1) {
+    protected void onHitLeftWall() {
+        System.out.println("onHitLeftWall");
+        incrementRightScore();
+        if (getRightPlayerScore() == gameUntil) {
             gameOver();
-        }
-        else{
-            incrementRightScore();
+        } else {
             resetBall(paddles.get(0));
-        }       
+        }
     }
 
     @Override
     protected void onHitRightWall() {
-         if (getLeftPlayerScore() == gameUntil - 1) {
+        System.out.println("onHitRightWall");
+        incrementLeftScore();
+        if (getLeftPlayerScore() == gameUntil) {
             gameOver();
-        }
-        else{
-            incrementLeftScore();
+        } else {
             resetBall(paddles.get(1));
-        }       
+        }
     }
 
     @Override
@@ -61,8 +60,8 @@ public class TwoPlayerModel extends AbstractModel {
     }
 
     private void resetBall(Paddle loser) {
-        double startingX = (loser.isRightPaddle()) ?  gameDimensions.width/3 : (gameDimensions.width - gameDimensions.width/3);
-        ball.setCenter(startingX , (gameDimensions.height/2));
+        double startingX = (loser.isRightPaddle()) ? gameDimensions.width / 3 : (gameDimensions.width - gameDimensions.width / 3);
+        ball.setCenter(startingX, (gameDimensions.height / 2));
         resetBallSpeed();
     }
 
