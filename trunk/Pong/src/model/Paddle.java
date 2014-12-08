@@ -24,9 +24,12 @@ public class Paddle {
         deltaY = newSpeed;
     }
 
-    /**
-     * @return the width
-     */
+    public int getX(){
+        return (int)body.x;
+    }
+    public int getY(){
+        return (int)body.y;
+    }
     public int getWidth() {
         return (int) body.width;
     }
