@@ -10,20 +10,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
-import model.ModelMain;
+import model.AbstractModel;
 import model.Paddle;
 import view.PongGUI;
 import view.PongPanel;
 
 abstract public class BoardController {
 
-    protected final ModelMain board;
+    protected final AbstractModel board;
     protected final PongGUI gui;
     private final int updateTimesPerSecond = 100;
     public long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
     private final Timer gameLoop = new Timer();
 
-    public BoardController(ModelMain board, PongGUI gui) {
+    public BoardController(AbstractModel board, PongGUI gui) {
         this.board = board;
         this.gui = gui;
     }

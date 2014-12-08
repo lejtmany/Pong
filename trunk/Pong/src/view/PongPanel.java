@@ -3,17 +3,17 @@ package view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import model.ModelMain;
+import model.AbstractModel;
 
 /**
  * @author Yosef Friedman & Yosef Lejtman
  */
 public class PongPanel extends JPanel {
     
-    private final ModelMain board;
+    private final AbstractModel board;
     
 
-    public PongPanel(ModelMain board) {
+    public PongPanel(AbstractModel board) {
         this.board = board;
     }
     
