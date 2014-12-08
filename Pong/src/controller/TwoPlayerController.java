@@ -29,7 +29,7 @@ public class TwoPlayerController extends BoardController{
 
     @Override
     protected void updateScoreLabel() {
-       gui.getScoreLabel().setText(String.format("Player 1: %d    Player 2: %d", board.getLeftPlayerScore(), board.getRightPlayerScore()));
+       gui.getScoreLabel().setText(String.format("%s%-30d %s%d", "Player 1: ",board.getLeftPlayerScore(),"Player 2: " ,board.getRightPlayerScore()));
     }
 
     @Override
