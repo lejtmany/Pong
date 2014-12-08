@@ -57,15 +57,11 @@ public class SinglePlayerController extends BoardController {
             if(isAHighScore(playerScore, highScores)){
                 updateHighScores(highScores, playerScore);
             }         
-            showRecordsPane();
+            gui.displayRecordsPane(recordKeeper);
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(SinglePlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void showRecordsPane() throws HeadlessException {
-        JOptionPane.showMessageDialog(null, recordKeeper.recordsToString(), "High Scores", 1);
     }
 
     private void updateHighScores(List<Player> highScores, int playerScore) throws IOException {

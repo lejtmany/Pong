@@ -39,7 +39,8 @@ abstract public class BoardController {
                 if (board.isGameOver()) {
                     gameLoop.cancel();
                     gameOver();
-                }else{
+                } 
+                else {
                     updateView();
                 }
                 updateBoard();
