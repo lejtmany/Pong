@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Yosef Friedman & Yosef Lejtman
  */
-public abstract class ModelMain {
+public abstract class AbstractModel {
 
     protected final Ball ball;
 
@@ -29,7 +29,7 @@ public abstract class ModelMain {
     private final double ballSpeedUpFactor = .001;
 
 
-    public ModelMain(Dimension gameDimentions, Ball ball, Paddle... paddles) {
+    public AbstractModel(Dimension gameDimentions, Ball ball, Paddle... paddles) {
         this.ball = ball;
         this.paddles.addAll(Arrays.asList(paddles));
         this.gameDimensions = new Dimension(gameDimentions);

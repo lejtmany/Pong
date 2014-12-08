@@ -1,19 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
 
-/**
- *
- * @author Miriam
- */
-public class TwoPlayerModel extends ModelMain {
+public class TwoPlayerModel extends AbstractModel {
 
     private int rightPlayerScore, leftPlayerScore;
     private int gameUntil = 12;
@@ -72,7 +61,6 @@ public class TwoPlayerModel extends ModelMain {
     }
 
     private void resetBall(Paddle loser) {
-        Rectangle paddleBody = loser.getBody();
         double startingX = (loser.isRightPaddle()) ?  gameDimensions.width/3 : (gameDimensions.width - gameDimensions.width/3);
         ball.setCenter(startingX , (gameDimensions.height/2));
         resetBallSpeed();
