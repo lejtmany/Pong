@@ -10,7 +10,7 @@ public class Paddle {
     private boolean isRightPaddle;
     private boolean isMovingDown;
     private boolean isMovingUp;
-    private Rectangle2D.Double body;
+    private final Rectangle2D.Double body;
 
     public Paddle(Point topLeft, int length, int width) {
         body = new Rectangle2D.Double(topLeft.x, topLeft.y, width, length);

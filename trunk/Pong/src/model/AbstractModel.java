@@ -2,15 +2,12 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
+
 public abstract class AbstractModel {
 
     protected final Ball ball;
@@ -109,8 +106,6 @@ public abstract class AbstractModel {
             onHitLeftWall();
         }
         paddles.stream().filter((paddle) -> (isHittingPaddle(paddle))).forEach((paddle) -> {
-            System.out.println("BALL: " + ball.getCenter());
-            System.out.println("PADDLE: " + paddle.getBody());
             onHitPaddle(paddle);
         });
     }

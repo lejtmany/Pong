@@ -1,8 +1,6 @@
 package controller;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
+
 public class Main {
         
         

@@ -1,13 +1,7 @@
 package model;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-/**
- * Ben Forgy
- * Dec 4, 2014
- */
 
 public interface RecordKeeper {
     

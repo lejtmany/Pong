@@ -23,7 +23,6 @@ public class BallTest {
 
     @Test
     public void testUpdatePosition_dx1_dy0() {
-        System.out.println("updatePosition");
         double amount = 1.0;
         defaultBall.setDeltaX(1);
         defaultBall.updatePosition(amount);
@@ -33,7 +32,6 @@ public class BallTest {
     
     @Test
     public void testUpdatePosition_dx0_dy1() {
-        System.out.println("updatePosition");
         double amount = 1.0;
         defaultBall.setDeltaY(1);
         defaultBall.updatePosition(amount);
@@ -43,7 +41,6 @@ public class BallTest {
     
     @Test
     public void testUpdatePosition_dxneg1_dy0() {
-        System.out.println("updatePosition");
         double amount = 1.0;
         defaultBall.setDeltaX(-1);
         defaultBall.updatePosition(amount);
@@ -52,7 +49,6 @@ public class BallTest {
     }
     @Test
     public void testUpdatePosition_dx1_dyhalf() {
-        System.out.println("updatePosition");
         double amount = 1.0;
         defaultBall.setDeltaX(1);
         defaultBall.setDeltaY(.5);

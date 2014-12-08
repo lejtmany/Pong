@@ -15,17 +15,14 @@ import model.SinglePlayerModel;
 import model.TwoPlayerModel;
 import view.PongGUI;
 
-/*
- * Ben Forgy
- * Dec 7, 2014
- */
+
 public class Pong {
 
     final private int ballRadius = 5;
     final private int paddleLength = 50;
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
-    final private double ballDeltaY = .45;
+    final private double ballDeltaY = 1;
     private double paddleDelta = 2.5;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
