@@ -31,7 +31,10 @@ public class TwoPlayerController extends BoardController{
 
     @Override
     protected void gameOver() {
-        gui.displayGameOver("");
+        String winner = 
+                board.getLeftPlayerScore() > board.getRightPlayerScore() ?
+                "Player 1 wins!" : "Player 2 wins!";
+        gui.displayGameOver(winner);
     }
     
     
