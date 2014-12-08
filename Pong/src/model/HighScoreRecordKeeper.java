@@ -67,6 +67,14 @@ public class HighScoreRecordKeeper implements RecordKeeper{
         return true;
     }
     
+    @Override
+    public String recordsToString(){
+        StringBuilder sb = new StringBuilder();
+            for(Player p : getRecords())
+                sb.insert(0, String.format("%s : %d%n", p.name, p.score));
+            return sb.toString();
+    }
+    
     private void setUpDefaultScores() throws IOException{
         List<Player> players = new ArrayList<>(3);
         players.add(new Player("BOB", 4));
