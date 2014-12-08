@@ -77,9 +77,9 @@ public class HighScoreRecordKeeper implements RecordKeeper{
     
     private void setUpDefaultScores() throws IOException{
         List<Player> players = new ArrayList<>(3);
-        players.add(new Player("BOB", 4));
-        players.add(new Player("WHK", 2));
-        players.add(new Player("CLH", 3));
+        players.add(new Player("   ", 0));
+        players.add(new Player("   ", 0));
+        players.add(new Player("   ", 0));
         updateRecords(players);
     }
     

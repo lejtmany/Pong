@@ -26,6 +26,7 @@ public class Pong {
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = .45;
+    private double paddleDelta = 2.5;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
 
@@ -33,12 +34,11 @@ public class Pong {
         PongGUI pongGui = new PongGUI(spb);
         RecordKeeper recordKeeper = null;
         Difficulty difficulty = null;
-        String highscoreFileName = "";
 
         difficulty = getDifficulty();
 
         spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor());
-        spb.setPaddleSpeed(2.5);
+        spb.setPaddleSpeed(paddleDelta);
 
         recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
 
@@ -68,7 +68,7 @@ public class Pong {
     private void playTwoPlayerGame(Dimension bounds, Ball ball, Paddle[] paddles) {
 
         TwoPlayerModel twoPlayerModel = new TwoPlayerModel(bounds, ball, paddles[0], paddles[1]);
-        twoPlayerModel.setPaddleSpeed(2.5);
+        twoPlayerModel.setPaddleSpeed(paddleDelta);
         PongGUI pongGui = new PongGUI(twoPlayerModel);
         TwoPlayerController twoPlayerGame = new TwoPlayerController(twoPlayerModel, pongGui);
         twoPlayerGame.start();
@@ -78,7 +78,6 @@ public class Pong {
 
         Dimension gameBounds = new Dimension(500, 500);
         Ball ball = new Ball(new Point(gameBounds.height / 2, gameBounds.height / 2), ballRadius);
-        double paddleDelta = 2.5;
         int paddleOffWall = 20;
         ball.setDeltaX(ballDeltaX);
         ball.setDeltaY(ballDeltaY);
@@ -99,7 +98,7 @@ public class Pong {
         }
     }
 
-    private int getGameType() throws HeadlessException {
+    private int getGameType() {
         String[] options = {"One Player", "Two Player"};
         int choice = JOptionPane.showOptionDialog(null, "One Player or Two?", "Game type",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
