@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import model.AbstractModel;
+import model.RecordKeeper;
 
 
 public class PongGUI {
@@ -93,9 +96,7 @@ public class PongGUI {
         gameOverLabel.setForeground(Color.white);
         gameOverLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 45));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gameOverLabel.setText(
-                String.format("<html>%s<br/><br/>%s</html>", 
-                        "GameOver",message));
+        gameOverLabel.setText(String.format("<html>%s<br/><br/>%s</html>", "Game Over",message));
         panel.add(gameOverLabel);
         panel.repaint();
     }

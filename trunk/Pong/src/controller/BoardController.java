@@ -30,15 +30,13 @@ abstract public class BoardController {
     private void startGameLoop() {
         gameLoop.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run() {
-                if (board.isGameOver()) {
+            public void run() { 
+                updateBoard();
+                updateView();
+                if (board.isGameOver()) {                   
                     gameLoop.cancel();
                     gameOver();
-                } 
-                else {
-                    updateView();
                 }
-                updateBoard();
             }
         },
                 0,

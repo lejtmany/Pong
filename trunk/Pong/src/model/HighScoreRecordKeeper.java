@@ -77,7 +77,8 @@ public class HighScoreRecordKeeper implements RecordKeeper{
                             String.format("%s         %d<br/>",
                                         p.name, p.score));
             }
-            sb.insert(0, "High scores: <br/>");
+            sb.insert(0, "<html>High scores: <br/>");
+            sb.append("</html>");
             return sb.toString();
     }
     
