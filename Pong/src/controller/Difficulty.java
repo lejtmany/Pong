@@ -6,8 +6,8 @@ public enum Difficulty {
       
     Difficult(2.5,"Pong\\..\\cache\\highscores_Diffcult.hsf"), Intermediate(2,"Pong\\..\\cache\\highscores_Intermediate.hsf"), Beginner(1,"Pong\\..\\cache\\highscores_Beginner.hsf");
     
-    private String highScoreFileName;
-    private double speedFactor;
+    private final String highScoreFileName;
+    private final double speedFactor;
     
     Difficulty(double speedFactor, String highScoreFileName){
         this.speedFactor = speedFactor;

@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,7 +24,6 @@ public class Pong {
     final private int ballRadius = 5;
     final private int paddleLength = 50;
     final private int paddleWidth = 5;
-    final private int scoreIncrement = 1;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = .45;
 
@@ -35,24 +35,34 @@ public class Pong {
         Difficulty difficulty = null;
         String highscoreFileName = "";
 
-        int choice = JOptionPane.showOptionDialog(null, "Chose a difficulty level.", "Difficulty",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-                null, Difficulty.getDifficultyStrings(), null);
+        difficulty = getDifficulty();
 
-        difficulty = Difficulty.values()[choice];
-        
         spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor());
         spb.setPaddleSpeed(2.5);
 
+        recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
+
+        SinglePlayerController singlePlayerGame = new SinglePlayerController(spb, pongGui, recordKeeper);
+        singlePlayerGame.start();
+    }
+
+    private Difficulty getDifficulty() throws HeadlessException {
+        Difficulty difficulty;
+        int choice = JOptionPane.showOptionDialog(null, "Chose a difficulty level.", "Difficulty",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, Difficulty.getDifficultyStrings(), null);
+        difficulty = Difficulty.values()[choice];
+        return difficulty;
+    }
+
+    private RecordKeeper tryInitializeRecordKeeper(RecordKeeper recordKeeper, Difficulty difficulty) throws HeadlessException {
         try {
             recordKeeper = new HighScoreRecordKeeper(difficulty.getHighScoreFileName(), 3);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Unable to set up File I/O. No highscores.");
         }
-
-        SinglePlayerController singlePlayerGame = new SinglePlayerController(spb, pongGui, recordKeeper);
-        singlePlayerGame.start();
+        return recordKeeper;
     }
 
     private void playTwoPlayerGame(Dimension bounds, Ball ball, Paddle[] paddles) {
@@ -72,24 +82,39 @@ public class Pong {
         int paddleOffWall = 20;
         ball.setDeltaX(ballDeltaX);
         ball.setDeltaY(ballDeltaY);
-        Paddle[] paddles = new Paddle[2];
+        Paddle[] paddles = initializePaddleArray(paddleOffWall, gameBounds);
+        int choice = getGameType();
 
+        startGame(choice, gameBounds, ball, paddles);
+    }
+
+    private void startGame(int choice, Dimension gameBounds, Ball ball, Paddle[] paddles) {
+        switch (choice) {
+            case 0:
+                playOnePlayerGame(gameBounds, ball, paddles[0]);
+                break;
+            case 1:
+                playTwoPlayerGame(gameBounds, ball, paddles);
+                break;
+        }
+    }
+
+    private int getGameType() throws HeadlessException {
+        String[] options = {"One Player", "Two Player"};
+        int choice = JOptionPane.showOptionDialog(null, "One Player or Two?", "Game type",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, null);
+        return choice;
+    }
+
+    private Paddle[] initializePaddleArray(int paddleOffWall, Dimension gameBounds) {
+        Paddle[] paddles = new Paddle[2];
         paddles[0] = new Paddle(new Point(paddleOffWall, gameBounds.height / 2),
                 paddleLength, paddleWidth);
         paddles[1] = new Paddle(
                 new Point(gameBounds.width - (paddleOffWall + paddleWidth), gameBounds.height / 2),
                 paddleLength, paddleWidth);
-
-        String[] options = {"One Player", "Two Player"};
-        int choice = JOptionPane.showOptionDialog(null, "One Player or Two?", "Game type",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-                null, options, null);
-
-        if (choice == 0) {
-            playOnePlayerGame(gameBounds, ball, paddles[0]);
-        } else if (choice == 1) {
-            playTwoPlayerGame(gameBounds, ball, paddles);
-        }
+        return paddles;
     }
 
 }
