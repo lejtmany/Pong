@@ -29,6 +29,6 @@ public interface RecordKeeper {
      */
     boolean updateRecords(List<Player> scores) throws IOException;
     
-    String recordsToString();
+    String recordsToHTMLString();
 
 }
