@@ -20,39 +20,32 @@ import view.PongGUI;
  */
 public class Pong {
 
-    private int ballRadius = 5;
-    private int paddleLength = 50;
-    private int paddleWidth = 5;
-    private int scoreIncrement = 1;
-    private double ballDeltaX = 1;
-    private double ballDeltaY = .45;
+    final private int ballRadius = 5;
+    final private int paddleLength = 50;
+    final private int paddleWidth = 5;
+    final private int scoreIncrement = 1;
+    final private double ballDeltaX = 1;
+    final private double ballDeltaY = .45;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
 
         SinglePlayerModel spb = new SinglePlayerModel(bounds, gameBall, paddle);
         PongGUI pongGui = new PongGUI(spb);
         RecordKeeper recordKeeper = null;
+        Difficulty difficulty = null;
+        String highscoreFileName = "";
 
-        String[] options = {"Beginner", "Intermediate", "Advanced"};
         int choice = JOptionPane.showOptionDialog(null, "Chose a difficulty level.", "Difficulty",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-                null, options, null);
+                null, Difficulty.getDifficultyStrings(), null);
 
-        String highscoreFileName = "Pong\\..\\cache\\highscores.hsf";
-        if (choice == 0) {
-            spb.setDefaultBallSpeedFactor(1);
-            highscoreFileName = "Pong\\..\\cache\\highscores_1.hsf";
-        } else if (choice == 1) {
-            spb.setDefaultBallSpeedFactor(2);
-            highscoreFileName = "Pong\\..\\cache\\highscores_2.hsf";
-        } else if (choice == 2) {
-            spb.setDefaultBallSpeedFactor(2.5);
-            highscoreFileName = "Pong\\..\\cache\\highscores_3.hsf";
-        }
+        difficulty = Difficulty.values()[choice];
+        
+        spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor());
         spb.setPaddleSpeed(2.5);
 
         try {
-            recordKeeper = new HighScoreRecordKeeper(highscoreFileName, 3);
+            recordKeeper = new HighScoreRecordKeeper(difficulty.getHighScoreFileName(), 3);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Unable to set up File I/O. No highscores.");
@@ -76,14 +69,15 @@ public class Pong {
         Dimension gameBounds = new Dimension(500, 500);
         Ball ball = new Ball(new Point(gameBounds.height / 2, gameBounds.height / 2), ballRadius);
         double paddleDelta = 2.5;
+        int paddleOffWall = 20;
         ball.setDeltaX(ballDeltaX);
         ball.setDeltaY(ballDeltaY);
         Paddle[] paddles = new Paddle[2];
 
-        paddles[0] = new Paddle(new Point(20, gameBounds.height / 2),
+        paddles[0] = new Paddle(new Point(paddleOffWall, gameBounds.height / 2),
                 paddleLength, paddleWidth);
         paddles[1] = new Paddle(
-                new Point(gameBounds.width - (20 + paddleWidth), gameBounds.height / 2),
+                new Point(gameBounds.width - (paddleOffWall + paddleWidth), gameBounds.height / 2),
                 paddleLength, paddleWidth);
 
         String[] options = {"One Player", "Two Player"};
