@@ -53,9 +53,8 @@ public class SinglePlayerController extends BoardController {
         
         try {
             List<Player> highScores = recordKeeper.getRecords();
-            System.out.println(highScores.size());
             
-            if(playerScore > highScores.get(0).score){
+            if(isAHighScore(playerScore, highScores)){
                 highScores.set(0, createPlayer(playerScore));
                 recordKeeper.updateRecords(highScores);
             }
@@ -70,15 +69,22 @@ public class SinglePlayerController extends BoardController {
         }
     }
 
+    private static boolean isAHighScore(int playerScore, List<Player> highScores) {
+        return playerScore > highScores.get(0).score;
+    }
+
     private Player createPlayer(int playerScore) {
-        String playerName;
-        do{
-            playerName = JOptionPane.showInputDialog("Please enter THREE initials: ");
-
-        }while(playerName == null || playerName.length() != 3);
-
-        
+        String playerName = promptForPlayerName();
         return new Player(playerName, playerScore);  
+    }
+
+    private String promptForPlayerName() throws HeadlessException {
+        String playerName;
+        int maxInitialLength = 4;
+        do{
+            playerName = JOptionPane.showInputDialog("Please enter THREE initials: ").trim();
+        }while(playerName == null || playerName.length() > maxInitialLength); //null check must come first to avoid nullpointer exception
+        return playerName;  
     }
 
 }
