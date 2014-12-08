@@ -96,7 +96,7 @@ public class PongGUI {
         gameOverLabel.setForeground(Color.white);
         gameOverLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 45));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gameOverLabel.setText("<html><p>Game Over<p>" + message + "</html>");
+        gameOverLabel.setText(String.format("<html>%s<br/><br/>%s<br/>%s</html>", "GameOver", "High Scores:",message));
         panel.add(gameOverLabel);
         panel.repaint();
     }

@@ -70,14 +70,14 @@ public class HighScoreRecordKeeper implements RecordKeeper{
     @Override
     public String recordsToHTMLString(){
         StringBuilder sb = new StringBuilder();
-            sb.append("<ul style=\"margin: none; padding: none\">");
+        sb.append("<html>");
             for(Player p : getRecords()){
                 if(p.score > 0)
                     sb.insert(0, 
-                            String.format("<li style=\"list-style-type: none\">%s  %d</li>",
+                            String.format("%s         %d<br/>",
                                         p.name, p.score));
             }
-                sb.append("</ul>");
+            sb.append("</html>");
             return sb.toString();
     }
     
