@@ -5,7 +5,7 @@ import java.awt.Dimension;
 public class TwoPlayerModel extends AbstractModel {
 
     private int rightPlayerScore, leftPlayerScore;
-    private int gameUntil = 12;
+    private int gameUntil = 3;
 
     public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle paddle1, Paddle paddle2) {
         super(gameDimensions, ball, paddle1, paddle2);
