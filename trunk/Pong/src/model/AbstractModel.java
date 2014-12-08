@@ -153,9 +153,10 @@ public abstract class AbstractModel {
     protected boolean isHittingPaddle(Paddle paddle) {
         //check to make sure only hits paddle once
         if (ballIsMovingTowardsPaddle(paddle)) {
+            int ballRadius =  ball.getRadius();
             Ellipse2D ballBody = new Ellipse2D.Float(
-                    ball.getCenter().x, ball.getCenter().y, 
-                    ball.getRadius(), ball.getRadius());
+                    ball.getCenter().x - ballRadius, ball.getCenter().y - ballRadius, 
+                    ballRadius * 2 , ballRadius * 2);
             
             return ballBody.intersects(paddle.getBody());
         } else {
