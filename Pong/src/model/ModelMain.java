@@ -23,9 +23,9 @@ public abstract class ModelMain {
 
     protected boolean isGameOver;
 
-    private Point oldCenter;
-    private double speedFactor = 1;
-    private double defaultSpeedFactor = 1;
+    private Point oldCenterOfBall;
+    private double ballSpeedFactor = 1;
+    private double defaultBallSpeedFactor = 1;
     private final double ballSpeedUpFactor = .001;
 
 
@@ -38,9 +38,14 @@ public abstract class ModelMain {
     public void setScoreIncrementAmount(int newAmount){
         scoreIncrementAmount = newAmount;
     }
-    public void setDefaultSpeedFactor(double factor){
-        defaultSpeedFactor = factor;
-        speedFactor = defaultSpeedFactor;
+    public void setDefaultBallSpeedFactor(double factor){
+        defaultBallSpeedFactor = factor;
+        ballSpeedFactor = defaultBallSpeedFactor;
+    }
+    public void setPaddleSpeed(double newSpeed){
+        for(Paddle p : paddles){
+            p.setSpeed(newSpeed);
+        }
     }
 
     public Ball getBall() {
@@ -69,16 +74,16 @@ public abstract class ModelMain {
     }
 
     private void updateBallPosition() {
-        oldCenter = ball.getCenter();
-        ball.updatePosition(speedFactor);
+        oldCenterOfBall = ball.getCenter();
+        ball.updatePosition(ballSpeedFactor);
         resolveBallCollisions();
     }
     
     protected void speedUpBallBy(double amount){
-        speedFactor += amount;
+        ballSpeedFactor += amount;
     }
     protected void resetBallSpeed(){
-        speedFactor = defaultSpeedFactor;
+        ballSpeedFactor = defaultBallSpeedFactor;
     }
     
 
@@ -112,7 +117,7 @@ public abstract class ModelMain {
 
 
     protected void onHitPaddle(Paddle paddle){
-        ball.setCenter(oldCenter.x, oldCenter.y);
+        ball.setCenter(oldCenterOfBall.x, oldCenterOfBall.y);
         speedUpBallBy(ballSpeedUpFactor);
         ball.setDeltaX( -ball.getDeltaX()); //negative
     }

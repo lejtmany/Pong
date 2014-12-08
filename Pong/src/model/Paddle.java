@@ -9,19 +9,22 @@ import java.awt.geom.Rectangle2D;
  */
 public class Paddle {
 
-    private final double deltaY;
+    private double deltaY = 1;
     private boolean isRightPaddle;
     private boolean isMovingDown;
     private boolean isMovingUp;
     private Rectangle2D.Double body;
 
-    public Paddle(Point top, int length, int width, double deltaY) {
-        this.deltaY = deltaY;
+    public Paddle(Point top, int length, int width) {
         body = new Rectangle2D.Double(top.x, top.y, width, length);
     }
 
     public Rectangle getBody() {
         return new Rectangle((int) body.x, (int)body.y, (int)body.width,(int) body.height);
+    }
+    
+    public void setSpeed(double newSpeed){
+        deltaY = newSpeed;
     }
 
     /**
