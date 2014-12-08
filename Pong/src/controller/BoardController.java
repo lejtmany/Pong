@@ -13,14 +13,13 @@ import java.util.TimerTask;
 import model.AbstractModel;
 import model.Paddle;
 import view.PongGUI;
-import view.PongPanel;
 
 abstract public class BoardController {
 
     protected final AbstractModel board;
     protected final PongGUI gui;
     private final int updateTimesPerSecond = 100;
-    public long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
+    private long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
     private final Timer gameLoop = new Timer();
 
     public BoardController(AbstractModel board, PongGUI gui) {

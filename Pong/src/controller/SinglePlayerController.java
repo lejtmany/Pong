@@ -15,8 +15,8 @@ import view.PongGUI;
 
 public class SinglePlayerController extends BoardController {
 
-    SinglePlayerModel board;
-    RecordKeeper recordKeeper;
+    private SinglePlayerModel board;
+    private RecordKeeper recordKeeper;
     
 
     public SinglePlayerController(SinglePlayerModel board, PongGUI gui, RecordKeeper recordKeeper) {
@@ -76,7 +76,7 @@ public class SinglePlayerController extends BoardController {
         String playerName = promptForPlayerName();
         return new Player(playerName, playerScore);  
     }
-    private String promptForPlayerName() throws HeadlessException {
+    private String promptForPlayerName(){
         String playerName;
         int maxInitialLength = 4;
         do{
