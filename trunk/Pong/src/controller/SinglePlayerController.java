@@ -55,18 +55,22 @@ public class SinglePlayerController extends BoardController {
             List<Player> highScores = recordKeeper.getRecords();
             
             if(isAHighScore(playerScore, highScores)){
-                highScores.set(0, createPlayer(playerScore));
-                recordKeeper.updateRecords(highScores);
-            }
-                        
-            StringBuilder sb = new StringBuilder();
-            for(Player p : recordKeeper.getRecords())
-                sb.insert(0, String.format("%s : %d%n", p.name, p.score));
-            JOptionPane.showMessageDialog(null, sb.toString(), "High Scores", 1);
+                updateHighScores(highScores, playerScore);
+            }         
+            showRecordsPane();
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(SinglePlayerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void showRecordsPane() throws HeadlessException {
+        JOptionPane.showMessageDialog(null, recordKeeper.recordsToString(), "High Scores", 1);
+    }
+
+    private void updateHighScores(List<Player> highScores, int playerScore) throws IOException {
+        highScores.set(0, createPlayer(playerScore));
+        recordKeeper.updateRecords(highScores);
     }
 
     private static boolean isAHighScore(int playerScore, List<Player> highScores) {

@@ -28,5 +28,7 @@ public interface RecordKeeper {
      * @throws IOException since it is dealing with file output.
      */
     boolean updateRecords(List<Player> scores) throws IOException;
+    
+    String recordsToString();
 
 }
