@@ -10,11 +10,17 @@ public class Ball{
     
     
     public Ball(Point center, int radius) {
+        this(center,radius,0,0);
+    }
+   
+    public Ball(Point center, int radius, double deltaX, double deltaY){
         if(center == null || radius < 0)
             throw new IllegalArgumentException();
         
         this.center = new ExactPoint(center.x, center.y);
         this.radius = radius;
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
     }
     
     public void updatePosition(double amount) {

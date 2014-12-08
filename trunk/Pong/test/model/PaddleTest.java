@@ -29,5 +29,5 @@ public class PaddleTest {
         defaultPaddle.moveUp();
         assertEquals(0, defaultPaddle.getY());
     }
-
+    
 }
