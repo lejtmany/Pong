@@ -4,9 +4,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
 public class Paddle {
 
     private double deltaY = 1;

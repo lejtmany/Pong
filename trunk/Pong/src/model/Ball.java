@@ -2,15 +2,10 @@ package model;
 
 import java.awt.Point;
 
-/**
- * @author Yosef Friedman & Yosef Lejtman
- */
 public class Ball{
     
     private ExactPoint center;
-    
     private final int radius;
-    
     private double deltaX, deltaY;
     
     

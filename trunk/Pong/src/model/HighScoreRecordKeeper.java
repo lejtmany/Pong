@@ -3,13 +3,10 @@ package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,14 +47,11 @@ public class HighScoreRecordKeeper implements RecordKeeper{
                 
                 if(inputObject instanceof Player){
                     players.add((Player) inputObject);
-                }
-                
+                } 
             }
         } catch (IOException ex) {
             Logger.getLogger(HighScoreRecordKeeper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
         Collections.sort(players);
         return players;
     }

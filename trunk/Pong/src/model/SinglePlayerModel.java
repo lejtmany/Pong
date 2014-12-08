@@ -2,8 +2,7 @@ package model;
 
 import java.awt.Dimension;
 
-
-public class SinglePlayerModel extends ModelMain {
+public class SinglePlayerModel extends AbstractModel {
 
     private int score;
 
