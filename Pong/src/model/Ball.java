@@ -10,6 +10,9 @@ public class Ball{
     
     
     public Ball(Point center, int radius) {
+        if(center == null || radius < 0)
+            throw new IllegalArgumentException();
+        
         this.center = new ExactPoint(center.x, center.y);
         this.radius = radius;
     }

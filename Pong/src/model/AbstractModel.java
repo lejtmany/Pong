@@ -89,10 +89,10 @@ public abstract class AbstractModel {
 
     private void updatePaddlePosition() {
         for (Paddle paddle : paddles) {
-                if (paddle.isMovingUp() && paddle.getBody().y > 0) {
+                if (paddle.isMovingUp() && paddle.getY() > 0) {
                     paddle.moveUp();
                 }
-                if (paddle.isMovingDown() && paddle.getBody().y + paddle.getHeight() < gameDimensions.height) {
+                if (paddle.isMovingDown() && paddle.getY() + paddle.getHeight() < gameDimensions.height) {
                     paddle.moveDown();
                 }           
         }

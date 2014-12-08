@@ -72,7 +72,6 @@ public class SinglePlayerController extends BoardController {
         highScores.set(0, createPlayer(playerScore));
         recordKeeper.updateRecords(highScores);
     }
-
     private static boolean isAHighScore(int playerScore, List<Player> highScores) {
         return playerScore > highScores.get(0).score;
     }
@@ -81,7 +80,6 @@ public class SinglePlayerController extends BoardController {
         String playerName = promptForPlayerName();
         return new Player(playerName, playerScore);  
     }
-
     private String promptForPlayerName() throws HeadlessException {
         String playerName;
         int maxInitialLength = 4;
