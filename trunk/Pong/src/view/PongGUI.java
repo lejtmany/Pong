@@ -18,42 +18,55 @@ import model.RecordKeeper;
  * @author Yosef Friedman & Yosef Lejtman
  */
 public class PongGUI {
-    
+
     private final JFrame frame;
     private final PongPanel panel;
     private final JLabel scoreLabel;
     private final JPanel scorePanel;
-    
-    
+    private final Dimension gameDimensions;
+
     public PongGUI(AbstractModel pongGame) {
+
+        gameDimensions = pongGame.getGameDimensions();
         final int scoreFontSize = 20;
         final int scorePanelHeight = scoreFontSize + 10;
-        Dimension gameDimensions = pongGame.getGameDimensions();
-        
+
         frame = new JFrame();
+        initializeFrame(scorePanelHeight);
+
+        panel = new PongPanel(pongGame);
+        initializePongPanel();
+        frame.add(panel, BorderLayout.CENTER);
+
+        scorePanel = new JPanel();
+        initializeScorePanel(scorePanelHeight);
+        frame.add(scorePanel, BorderLayout.NORTH);
+
+        scoreLabel = new JLabel();
+        initializeScoreLabel(scorePanelHeight, scoreFontSize);
+        scorePanel.add(scoreLabel);
+
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private void initializeFrame(final int scorePanelHeight) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(gameDimensions.width, gameDimensions.height + scorePanelHeight);
         frame.setResizable(false);
         frame.setLayout(new BorderLayout());
-        
-        panel = new PongPanel(pongGame);
+    }
+
+    private void initializePongPanel() {
         panel.setSize(gameDimensions.width, gameDimensions.height);
         panel.setPreferredSize(new Dimension(gameDimensions.width, gameDimensions.height));
         panel.setBackground(Color.black);
         panel.setFocusable(true);
         panel.setBorder(BorderFactory.createLineBorder(Color.white, 2));
-        frame.add(panel, BorderLayout.CENTER);
-                     
-        scorePanel = new JPanel();
-        scorePanel.setSize(gameDimensions.width, scorePanelHeight);
-        scorePanel.setPreferredSize(
-                new Dimension(gameDimensions.width, scorePanelHeight));
-        scorePanel.setBackground(Color.black);
-        frame.add(scorePanel, BorderLayout.NORTH);
-        
-               
-        scoreLabel = new JLabel();
-        scoreLabel.setSize(gameDimensions.width,scorePanelHeight);
+    }
+
+    private void initializeScoreLabel(final int scorePanelHeight, final int scoreFontSize) {
+        scoreLabel.setSize(gameDimensions.width, scorePanelHeight);
         scoreLabel.setPreferredSize(
                 new Dimension(gameDimensions.width, scorePanelHeight));
         scoreLabel.setFont(
@@ -61,20 +74,23 @@ public class PongGUI {
         scoreLabel.setBackground(Color.black);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         scoreLabel.setForeground(Color.white);
-        scorePanel.add(scoreLabel);
-                
-        frame.pack();
-        frame.setVisible(true);
     }
-        
-    public JLabel getScoreLabel(){
+
+    private void initializeScorePanel(final int scorePanelHeight) {
+        scorePanel.setSize(gameDimensions.width, scorePanelHeight);
+        scorePanel.setPreferredSize(
+                new Dimension(gameDimensions.width, scorePanelHeight));
+        scorePanel.setBackground(Color.black);
+    }
+
+    public JLabel getScoreLabel() {
         return scoreLabel;
     }
-    
+
     public void refreshScreen() {
         panel.repaint();
     }
-    
+
     public void displayGameOver() {
         JLabel gameOverLabel = new JLabel();
         String gameOverMessage = "Game Over!";
@@ -87,12 +103,12 @@ public class PongGUI {
         panel.add(gameOverLabel);
         panel.repaint();
     }
-    
+
     public void displayRecordsPane(RecordKeeper recordKeeper) throws HeadlessException {
         JOptionPane.showMessageDialog(null, recordKeeper.recordsToString(), "High Scores", 1);
     }
-    
-    public PongPanel getPongPanel(){
+
+    public PongPanel getPongPanel() {
         return panel;
     }
 }
