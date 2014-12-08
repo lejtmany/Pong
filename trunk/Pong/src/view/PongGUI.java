@@ -91,22 +91,18 @@ public class PongGUI {
         panel.repaint();
     }
 
-    public void displayGameOver() {
+    public void displayGameOver(String message) {
         JLabel gameOverLabel = new JLabel();
-        String gameOverMessage = "Game Over!";
         gameOverLabel.setSize(panel.getSize());
         gameOverLabel.setBackground(Color.black);
         gameOverLabel.setForeground(Color.white);
         gameOverLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 45));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gameOverLabel.setText(gameOverMessage);
+        gameOverLabel.setText("<html><p>Game Over<p>" + message + "</html>");
         panel.add(gameOverLabel);
         panel.repaint();
     }
 
-    public void displayRecordsPane(RecordKeeper recordKeeper) throws HeadlessException {
-        JOptionPane.showMessageDialog(null, recordKeeper.recordsToString(), "High Scores", 1);
-    }
 
     public PongPanel getPongPanel() {
         return panel;

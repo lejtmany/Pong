@@ -39,12 +39,11 @@ public class SinglePlayerController extends BoardController {
     }
 
     @Override
-    protected void gameOver() {
-        gui.displayGameOver();
-        System.out.println("GAME OVER! ");
-        
+    protected void gameOver() {          
         if(recordKeeper != null)
             checkScore();
+        gui.displayGameOver(recordKeeper.recordsToHTMLString());
+        System.out.println("GAME OVER! ");
       
     }
 
@@ -56,8 +55,7 @@ public class SinglePlayerController extends BoardController {
             
             if(isAHighScore(playerScore, highScores)){
                 updateHighScores(highScores, playerScore);
-            }         
-            gui.displayRecordsPane(recordKeeper);
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(SinglePlayerController.class.getName()).log(Level.SEVERE, null, ex);

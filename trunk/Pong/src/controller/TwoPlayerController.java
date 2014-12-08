@@ -31,7 +31,7 @@ public class TwoPlayerController extends BoardController{
 
     @Override
     protected void gameOver() {
-        gui.displayGameOver();
+        gui.displayGameOver("");
     }
     
     
