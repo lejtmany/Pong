@@ -74,10 +74,8 @@ public class SinglePlayerController extends BoardController {
         String playerName;
         do{
             playerName = JOptionPane.showInputDialog("Please enter THREE initials: ");
-            if(playerName == null){
-                playerName = "QQQ";
-        }
-        }while(playerName.length() > 4);
+
+        }while(playerName == null || playerName.length() != 3);
 
         
         return new Player(playerName, playerScore);  
