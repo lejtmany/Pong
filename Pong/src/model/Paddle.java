@@ -12,8 +12,8 @@ public class Paddle {
     private boolean isMovingUp;
     private Rectangle2D.Double body;
 
-    public Paddle(Point top, int length, int width) {
-        body = new Rectangle2D.Double(top.x, top.y, width, length);
+    public Paddle(Point topLeft, int length, int width) {
+        body = new Rectangle2D.Double(topLeft.x, topLeft.y, width, length);
     }
 
     public Rectangle getBody() {
