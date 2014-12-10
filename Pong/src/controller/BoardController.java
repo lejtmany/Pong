@@ -14,8 +14,8 @@ abstract public class BoardController {
 
     protected final AbstractModel board;
     protected final PongGUI gui;
-    private final int updateTimesPerSecond = 100;
-    private long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
+    public static final int updateTimesPerSecond = 1000;
+    public static final long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
     private final Timer gameLoop = new Timer();
 
     public BoardController(AbstractModel board, PongGUI gui) {

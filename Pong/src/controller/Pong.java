@@ -23,7 +23,7 @@ public class Pong {
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = 1;
-    private double paddleDelta = 2.5;
+    private double paddleDelta = 250.0/BoardController.updateTimesPerSecond;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
 
@@ -34,7 +34,8 @@ public class Pong {
 
         difficulty = getDifficulty();
 
-        spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor());
+        spb.setDefaultBallSpeedFactor(
+                difficulty.getSpeedFactor()/BoardController.updateTimesPerSecond);
         spb.setPaddleSpeed(paddleDelta);
 
         recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
@@ -43,7 +44,7 @@ public class Pong {
         singlePlayerGame.start();
     }
 
-    private Difficulty getDifficulty() throws HeadlessException {
+    private Difficulty getDifficulty() {
         Difficulty difficulty;
         int choice = JOptionPane.showOptionDialog(null, "Chose a difficulty level.", "Difficulty",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -52,7 +53,7 @@ public class Pong {
         return difficulty;
     }
 
-    private RecordKeeper tryInitializeRecordKeeper(RecordKeeper recordKeeper, Difficulty difficulty) throws HeadlessException {
+    private RecordKeeper tryInitializeRecordKeeper(RecordKeeper recordKeeper, Difficulty difficulty) {
         try {
             recordKeeper = new HighScoreRecordKeeper(difficulty.getHighScoreFileName(), 3);
         } catch (IOException ex) {

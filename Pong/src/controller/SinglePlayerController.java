@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
@@ -78,9 +77,9 @@ public class SinglePlayerController extends BoardController {
         String playerName;
         int maxInitialLength = 4;
         do{
-            playerName = JOptionPane.showInputDialog("Please enter THREE initials: ").trim();
+            playerName = JOptionPane.showInputDialog("Please enter THREE initials: ");
         }while(playerName == null || playerName.length() > maxInitialLength); //null check must come first to avoid nullpointer exception
-        return playerName;  
+        return playerName;
     }
 
 }

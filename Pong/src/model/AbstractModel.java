@@ -21,9 +21,9 @@ public abstract class AbstractModel {
     protected boolean isGameOver;
 
     private Point oldCenterOfBall;
-    private double ballSpeedFactor = 1;
-    private double defaultBallSpeedFactor = 1;
-    private final double ballSpeedUpFactor = .001;
+    private double ballSpeedFactor = 100.0/controller.BoardController.updateTimesPerSecond;
+    private double defaultBallSpeedFactor = 100.0/controller.BoardController.updateTimesPerSecond;
+    private final double ballSpeedUpFactor = 1.0/controller.BoardController.updateTimesPerSecond;
 
 
     public AbstractModel(Dimension gameDimentions, Ball ball, Paddle... paddles) {
@@ -78,6 +78,7 @@ public abstract class AbstractModel {
     
     protected void speedUpBallBy(double amount){
         ballSpeedFactor += amount;
+        System.out.println("ballSpeedFactor = " + ballSpeedFactor);
     }
     protected void resetBallSpeed(){
         ballSpeedFactor = defaultBallSpeedFactor;
