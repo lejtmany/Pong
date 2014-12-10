@@ -108,13 +108,11 @@ public class Pong {
     private Paddle[] initializePaddleArray(int paddleOffWall, Dimension gameBounds) {
         Paddle[] paddles = new Paddle[2];
         paddles[0] = new Paddle(
-                PaddlePlayer.ONE,
                 new Point(paddleOffWall, 
                         gameBounds.height / 2),
                 paddleLength, 
                 paddleWidth);
         paddles[1] = new Paddle(
-                PaddlePlayer.TWO,
                 new Point(
                         gameBounds.width - (paddleOffWall + paddleWidth),
                         gameBounds.height / 2),
