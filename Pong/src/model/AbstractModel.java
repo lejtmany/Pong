@@ -3,7 +3,7 @@ package model;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
-import static controller.BoardController.updateTimesPerSecond;
+import static controller.BoardController.MILLISECONDS_IN_SECOND;
 import java.awt.Rectangle;
 
 public abstract class AbstractModel {
@@ -17,9 +17,9 @@ public abstract class AbstractModel {
     protected boolean isGameOver;
 
     private Point oldCenterOfBall;
-    private double ballSpeedFactor = 100.0/updateTimesPerSecond;
-    private double defaultBallSpeedFactor = 100.0/updateTimesPerSecond;
-    private final double ballSpeedUpFactor = 1.0/updateTimesPerSecond;
+    private double ballSpeedFactor = 100.0/MILLISECONDS_IN_SECOND;
+    private double defaultBallSpeedFactor = 100.0/MILLISECONDS_IN_SECOND;
+    private final double ballSpeedUpFactor = 1.0/MILLISECONDS_IN_SECOND;
 
 
     public AbstractModel(Dimension gameDimentions, Ball ball) {

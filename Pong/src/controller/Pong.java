@@ -36,7 +36,7 @@ public class Pong {
         difficulty = getDifficulty();
 
         spb.setDefaultBallSpeedFactor(
-                difficulty.getSpeedFactor()/BoardController.updateTimesPerSecond);
+                difficulty.getSpeedFactor()/BoardController.MILLISECONDS_IN_SECOND);
         spb.setPaddleSpeed(paddleDelta);
 
         recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
