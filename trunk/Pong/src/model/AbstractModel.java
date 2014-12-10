@@ -3,16 +3,12 @@ package model;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import static controller.BoardController.updateTimesPerSecond;
+import java.awt.Rectangle;
 
 public abstract class AbstractModel {
 
     protected final Ball ball;
-
-    List<Paddle> paddles = new ArrayList<>();
 
     protected final Dimension gameDimensions;
 
@@ -21,14 +17,13 @@ public abstract class AbstractModel {
     protected boolean isGameOver;
 
     private Point oldCenterOfBall;
-    private double ballSpeedFactor = 100.0/controller.BoardController.updateTimesPerSecond;
-    private double defaultBallSpeedFactor = 100.0/controller.BoardController.updateTimesPerSecond;
-    private final double ballSpeedUpFactor = 1.0/controller.BoardController.updateTimesPerSecond;
+    private double ballSpeedFactor = 100.0/updateTimesPerSecond;
+    private double defaultBallSpeedFactor = 100.0/updateTimesPerSecond;
+    private final double ballSpeedUpFactor = 1.0/updateTimesPerSecond;
 
 
-    public AbstractModel(Dimension gameDimentions, Ball ball, Paddle... paddles) {
+    public AbstractModel(Dimension gameDimentions, Ball ball) {
         this.ball = ball;
-        this.paddles.addAll(Arrays.asList(paddles));
         this.gameDimensions = new Dimension(gameDimentions);
     }
     
@@ -39,19 +34,16 @@ public abstract class AbstractModel {
         defaultBallSpeedFactor = factor;
         ballSpeedFactor = defaultBallSpeedFactor;
     }
-    public void setPaddleSpeed(double newSpeed){
-        for(Paddle p : paddles){
-            p.setSpeed(newSpeed);
-        }
-    }
+    public abstract void setPaddleSpeed(double plxPerSec);
 
-    public Ball getBall() {
-        return new Ball(ball.getCenter(), ball.getRadius());
+    public Ellipse2D getBall() {
+        double radius = ball.getRadius();
+        Point center = ball.getCenter();
+        return new Ellipse2D.Double(center.x - radius, center.y - radius,
+                            radius * 2, radius * 2);
     }
-
-    public List<Paddle> getPaddles() {
-        return new ArrayList<>(paddles);
-    }
+    
+    public abstract Rectangle[] getPaddles();
     
     public Dimension getGameDimensions(){
         return new Dimension(gameDimensions);
@@ -65,12 +57,7 @@ public abstract class AbstractModel {
         this.isGameOver = isGameOver;
     }
 
-    public void updateBoard() {
-        updateBallPosition();
-        updatePaddlePosition();
-    }
-
-    private void updateBallPosition() {
+    public void updateBall() {
         oldCenterOfBall = ball.getCenter();
         ball.updatePosition(ballSpeedFactor);
         resolveBallCollisions();
@@ -83,18 +70,6 @@ public abstract class AbstractModel {
     protected void resetBallSpeed(){
         ballSpeedFactor = defaultBallSpeedFactor;
     }
-    
-
-    private void updatePaddlePosition() {
-        for (Paddle paddle : paddles) {
-                if (paddle.isMovingUp() && paddle.getY() > 0) {
-                    paddle.moveUp();
-                }
-                if (paddle.isMovingDown() && paddle.getY() + paddle.getHeight() < gameDimensions.height) {
-                    paddle.moveDown();
-                }           
-        }
-    }
 
     protected void resolveBallCollisions() {
         if (isHittingHorizontalWall()) {
@@ -106,13 +81,28 @@ public abstract class AbstractModel {
         if (isHittingLeftWall()) {
             onHitLeftWall();
         }
-        paddles.stream().filter((paddle) -> (isHittingPaddle(paddle))).forEach((paddle) -> {
-            onHitPaddle(paddle);
-        });
+        for(Rectangle paddle : getPaddles()){
+            if(isHittingPaddle(paddle)){
+                onHitPaddle();
+            }
+        }
+    }
+    
+    protected boolean paddleCollidingWithWall(Paddle paddle, Direction dir){
+        if(dir == Direction.UP && paddle.getY() <= 0)
+        {
+            return true;
+        }
+        if(dir == Direction.DOWN &&
+                paddle.getY() + paddle.getHeight() >= gameDimensions.height)
+        {
+            return true;
+        }
+        return false;
     }
 
 
-    protected void onHitPaddle(Paddle paddle){
+    protected void onHitPaddle(){
         ball.setCenter(oldCenterOfBall.x, oldCenterOfBall.y);
         speedUpBallBy(ballSpeedUpFactor);
         ball.setDeltaX( -ball.getDeltaX()); //negative
@@ -146,7 +136,7 @@ public abstract class AbstractModel {
         return ball.getCenter().x - ball.getRadius() <= 0;
     }
 
-    protected boolean isHittingPaddle(Paddle paddle) {
+    protected boolean isHittingPaddle(Rectangle paddle) {
         //check to make sure only hits paddle once
         if (ballIsMovingTowardsPaddle(paddle)) {
             int ballRadius =  ball.getRadius();
@@ -154,15 +144,16 @@ public abstract class AbstractModel {
                     ball.getCenter().x - ballRadius, ball.getCenter().y - ballRadius, 
                     ballRadius * 2 , ballRadius * 2);
             
-            return ballBody.intersects(paddle.getBody());
+            return ballBody.intersects(paddle);
         } else {
             return false;
         }
     }
 
-    private boolean ballIsMovingTowardsPaddle(Paddle paddle) {
-        return (paddle.isRightPaddle() && ball.getDeltaX() > 0) 
-                || (!paddle.isRightPaddle() && ball.getDeltaX() < 0);
+    private boolean ballIsMovingTowardsPaddle(Rectangle paddle) {
+        int ballX = ball.getCenter().x;
+        return (paddle.x > ballX && ball.getDeltaX() > 0) 
+                || (paddle.x < ballX && ball.getDeltaX() < 0);
     }
 
 }

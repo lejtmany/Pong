@@ -7,7 +7,8 @@ import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import model.AbstractModel;
-import model.Paddle;
+import model.Direction;
+import model.PaddlePlayer;
 import view.PongGUI;
 
 abstract public class BoardController {
@@ -17,6 +18,7 @@ abstract public class BoardController {
     public static final int updateTimesPerSecond = 1000;
     public static final long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
     private final Timer gameLoop = new Timer();
+    private Direction[] paddleDirections = new Direction[2];
 
     public BoardController(AbstractModel board, PongGUI gui) {
         this.board = board;
@@ -43,13 +45,15 @@ abstract public class BoardController {
                 UPDATE_FREQUENCY);
     }
 
-    public void updateBoard() {
-        board.updateBoard();
-    }
+    public abstract void updateBoard();
 
     public void updateView() {
         updateScoreLabel();
         gui.refreshScreen();
+    }
+    
+    public Direction getDirection(PaddlePlayer paddle){
+        return paddleDirections[paddle.ordinal()];
     }
 
     protected abstract void updateScoreLabel();
@@ -60,28 +64,23 @@ abstract public class BoardController {
 
     protected abstract void addPaddleKeyListeners();
 
-    protected KeyListener generatePaddleKeyListeners(Paddle paddle, int upKey, int downKey) {
+    protected KeyListener generatePaddleKeyListeners(PaddlePlayer paddle, int upKey, int downKey) {
         return new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyCode() == upKey) {
-                    paddle.setIsMovingUp(true);
+                    paddleDirections[paddle.ordinal()] = Direction.UP;
                 }
 
                 if (ke.getKeyCode() == downKey) {
-                    paddle.setIsMovingDown(true);
+                    paddleDirections[paddle.ordinal()] = Direction.DOWN;
                 }
 
             }
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                if (ke.getKeyCode() == upKey) {
-                    paddle.setIsMovingUp(false);
-                }
-                if (ke.getKeyCode() == downKey) {
-                    paddle.setIsMovingDown(false);
-                }
+                paddleDirections[paddle.ordinal()] = Direction.NONE;
             }
         };
 

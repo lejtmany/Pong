@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Ball;
 import model.HighScoreRecordKeeper;
 import model.Paddle;
+import model.PaddlePlayer;
 import model.RecordKeeper;
 import model.SinglePlayerModel;
 import model.TwoPlayerModel;
@@ -23,7 +24,7 @@ public class Pong {
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = 1;
-    private double paddleDelta = 250.0/BoardController.updateTimesPerSecond;
+    private double paddleDelta = 250.0;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
 
@@ -106,11 +107,19 @@ public class Pong {
 
     private Paddle[] initializePaddleArray(int paddleOffWall, Dimension gameBounds) {
         Paddle[] paddles = new Paddle[2];
-        paddles[0] = new Paddle(new Point(paddleOffWall, gameBounds.height / 2),
-                paddleLength, paddleWidth);
+        paddles[0] = new Paddle(
+                PaddlePlayer.ONE,
+                new Point(paddleOffWall, 
+                        gameBounds.height / 2),
+                paddleLength, 
+                paddleWidth);
         paddles[1] = new Paddle(
-                new Point(gameBounds.width - (paddleOffWall + paddleWidth), gameBounds.height / 2),
-                paddleLength, paddleWidth);
+                PaddlePlayer.TWO,
+                new Point(
+                        gameBounds.width - (paddleOffWall + paddleWidth),
+                        gameBounds.height / 2),
+                paddleLength, 
+                paddleWidth);
         return paddles;
     }
 

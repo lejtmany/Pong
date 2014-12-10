@@ -1,40 +1,51 @@
 package model;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
+import static controller.BoardController.updateTimesPerSecond;
 
-public class TwoPlayerModel extends AbstractModel {
+public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
 
-    private int rightPlayerScore, leftPlayerScore;
+    private int[] playerScores;
     private int gameUntil = 3;
+    private Paddle[] paddles;
 
-    public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle paddle1, Paddle paddle2) {
-        super(gameDimensions, ball, paddle1, paddle2);
-        paddle2.setRightPaddle(true);
+    public TwoPlayerModel(Dimension gameDimensions, Ball ball, Paddle... paddles) {
+        super(gameDimensions, ball);
+        this.paddles = paddles;
+        playerScores = new int[2];
+        
     }
 
     public void setGameUntilScore(int score) {
         gameUntil = score;
     }
+    
+    @Override
+    public void setPaddleSpeed(double pxlPerSec){
+        for(Paddle p : paddles){
+            if(p != null)
+                p.setSpeed(pxlPerSec/updateTimesPerSecond);
+        }
+    }
 
     @Override
     protected void onHitLeftWall() {
-        System.out.println("onHitLeftWall");
-        incrementRightScore();
-        if (getRightPlayerScore() == gameUntil) {
+        incrementScore(PaddlePlayer.TWO);
+        if (playerScores[1] == gameUntil) {
             gameOver();
         } else {
-            resetBall(paddles.get(0));
+            resetBall(PaddlePlayer.ONE);
         }
     }
 
     @Override
     protected void onHitRightWall() {
-        System.out.println("onHitRightWall");
-        incrementLeftScore();
-        if (getLeftPlayerScore() == gameUntil) {
+        incrementScore(PaddlePlayer.ONE);
+        if (playerScores[0] == gameUntil) {
             gameOver();
         } else {
-            resetBall(paddles.get(1));
+            resetBall(PaddlePlayer.TWO);
         }
     }
 
@@ -43,24 +54,53 @@ public class TwoPlayerModel extends AbstractModel {
         setGameOver(true);
     }
 
-    public int getRightPlayerScore() {
-        return rightPlayerScore;
+    @Override
+    public void incrementScore(PaddlePlayer player) {
+        playerScores[player.ordinal()] += scoreIncrementAmount;
+    }
+    
+    public int getScore(PaddlePlayer player){
+        return playerScores[player.ordinal()];
     }
 
-    public int getLeftPlayerScore() {
-        return leftPlayerScore;
+//    private void resetBall(Paddle loser) {
+//        double startingX = (loser.isRightPaddle()) ? gameDimensions.width / 3 : (gameDimensions.width - gameDimensions.width / 3);
+//        ball.setCenter(startingX, (gameDimensions.height / 2));
+//        resetBallSpeed();
+//    }
+    
+    
+
+    @Override
+    public void movePaddle(PaddlePlayer player, Direction dir) {
+        Paddle paddle = paddles[player.ordinal()];
+        if(!paddleCollidingWithWall(paddle, dir))
+            paddle.move(dir);   
     }
 
-    private void incrementRightScore() {
-        rightPlayerScore += scoreIncrementAmount;
+
+    @Override
+    public void restart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void incrementLeftScore() {
-        leftPlayerScore += scoreIncrementAmount;
+    @Override
+    public Rectangle getPaddle(PaddlePlayer player) {
+        return paddles[player.ordinal()].getBody();
+    }
+    
+    
+    @Override
+    public Rectangle[] getPaddles() {
+        return new Rectangle[]{paddles[0].getBody(), paddles[1].getBody()};
     }
 
-    private void resetBall(Paddle loser) {
-        double startingX = (loser.isRightPaddle()) ? gameDimensions.width / 3 : (gameDimensions.width - gameDimensions.width / 3);
+    @Override
+    public void resetBall(PaddlePlayer losingPlayer) {
+        double startingX = (losingPlayer == PaddlePlayer.TWO) ?
+                gameDimensions.width / 3 
+                : (gameDimensions.width - gameDimensions.width / 3);
+        
         ball.setCenter(startingX, (gameDimensions.height / 2));
         resetBallSpeed();
     }

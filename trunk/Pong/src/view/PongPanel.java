@@ -19,9 +19,8 @@ public class PongPanel extends JPanel {
     protected void paintComponent(Graphics grphcs) {
         super.paintComponent(grphcs);
         Graphics2D g = (Graphics2D)grphcs;
-        PongComponentDrawer drawer = new PongComponentDrawer();
-        drawer.draw(board.getBall(), g);
-        drawer.draw(board.getPaddles(), g);
+        PongComponentDrawer.draw(board.getBall(), g);
+        PongComponentDrawer.draw(board.getPaddles(), g);
     }
   
 }
