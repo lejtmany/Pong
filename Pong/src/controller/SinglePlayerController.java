@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Paddle;
+import model.Direction;
+import model.PaddlePlayer;
 import model.Player;
 import model.RecordKeeper;
 import model.SinglePlayerModel;
@@ -28,8 +29,9 @@ public class SinglePlayerController extends BoardController {
 
     @Override
     protected void addPaddleKeyListeners() {
-        Paddle paddle = super.board.getPaddles().get(0);
-        super.gui.getPongPanel().addKeyListener(generatePaddleKeyListeners(paddle, KeyEvent.VK_UP, KeyEvent.VK_DOWN));
+        super.gui.getPongPanel().
+                addKeyListener(generatePaddleKeyListeners(
+                        PaddlePlayer.ONE, KeyEvent.VK_UP, KeyEvent.VK_DOWN));
     }
 
     @Override
@@ -42,7 +44,7 @@ public class SinglePlayerController extends BoardController {
         if(recordKeeper != null)
             checkScore();
         gui.displayGameOver(recordKeeper.recordsToHTMLString());
-        System.out.println("GAME OVER! ");
+        System.out.println("GAME OVER!");
       
     }
 
@@ -80,6 +82,14 @@ public class SinglePlayerController extends BoardController {
             playerName = JOptionPane.showInputDialog("Please enter THREE initials: ");
         }while(playerName == null || playerName.length() > maxInitialLength); //null check must come first to avoid nullpointer exception
         return playerName;
+    }
+
+    @Override
+    public void updateBoard() {
+        board.updateBall();
+        Direction dir = getDirection(PaddlePlayer.ONE);
+        if(dir != Direction.NONE)
+            board.movePaddle(getDirection(PaddlePlayer.ONE));
     }
 
 }

@@ -2,36 +2,26 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.List;
-import model.Ball;
-import model.Paddle;
+import java.awt.geom.Ellipse2D;
 
 public class PongComponentDrawer {
 
-    public void draw(Ball ball, Graphics2D g) {
-        Point topLeft = getBallTopLeftRect(ball);
+    public static void draw(Ellipse2D ball, Graphics2D g) {
         g.setColor(Color.white);
-        g.fillOval(topLeft.x, topLeft.y, ball.getRadius() * 2, ball.getRadius() * 2);
-    }
-
-    private Point getBallTopLeftRect(Ball ball) {
-        Point topLeft = new Point();
-        topLeft.x = ball.getCenter().x - ball.getRadius();
-        topLeft.y = ball.getCenter().y - ball.getRadius();
-        return topLeft;
+        g.fillOval((int)ball.getMinX(), 
+                (int)ball.getMinY(), 
+                (int)ball.getWidth(), (int)ball.getHeight());
     }
     
-     public void draw(List<Paddle> paddles, Graphics2D g){
-        for(Paddle paddle : paddles){
+     public static void draw(Rectangle[] paddles, Graphics2D g){
+        for(Rectangle paddle : paddles){
             drawPaddle(paddle, g);
         }
     }
      
-    private void drawPaddle(Paddle paddle, Graphics2D g) {
-        Rectangle paddleBody = paddle.getBody();
+    private static void drawPaddle(Rectangle paddle, Graphics2D g) {
         g.setColor(Color.white);             
-        g.fillRect(paddleBody.x ,paddleBody.y, paddle.getWidth(), paddle.getHeight());
+        g.fillRect(paddle.x ,paddle.y, paddle.width, paddle.height);
     }
 }
