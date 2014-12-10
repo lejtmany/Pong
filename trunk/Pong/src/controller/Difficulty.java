@@ -2,9 +2,9 @@ package controller;
 
 public enum Difficulty {
     
-    Beginner(1,"Pong\\..\\cache\\highscores_Beginner.hsf"),
-    Advanced(2,"Pong\\..\\cache\\highscores_Advanced.hsf"), 
-    Expert(2.5,"Pong\\..\\cache\\highscores_Expert.hsf");
+    Beginner(100,"Pong\\..\\cache\\highscores_Beginner.hsf"),
+    Advanced(200,"Pong\\..\\cache\\highscores_Advanced.hsf"), 
+    Expert(250,"Pong\\..\\cache\\highscores_Expert.hsf");
     
     
     private final String highScoreFileName;
