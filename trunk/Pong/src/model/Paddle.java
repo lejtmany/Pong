@@ -8,10 +8,8 @@ public class Paddle {
 
     private double deltaY = 1;
     private final Rectangle2D.Double body;
-    private PaddlePlayer player;
 
-    public Paddle(PaddlePlayer player, Point topLeft, int length, int width) {
-        this.player = player;
+    public Paddle(Point topLeft, int length, int width) {
         body = new Rectangle2D.Double(topLeft.x, topLeft.y, width, length);
     }
 
@@ -38,10 +36,6 @@ public class Paddle {
     }
     public int getHeight() {
         return (int) body.height;
-    }
-    
-    public PaddlePlayer getPaddlePlayer(){
-        return player;
     }
 
     public void move(Direction dir) {

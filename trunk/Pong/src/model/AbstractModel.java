@@ -15,7 +15,8 @@ public abstract class AbstractModel {
     protected int scoreIncrementAmount = 1;
 
     protected boolean isGameOver;
-
+    
+    private Point originalBallPosition;
     private Point oldCenterOfBall;
     private double ballSpeedFactor = 100.0/MILLISECONDS_IN_SECOND;
     private double defaultBallSpeedFactor = 100.0/MILLISECONDS_IN_SECOND;
@@ -25,6 +26,7 @@ public abstract class AbstractModel {
     public AbstractModel(Dimension gameDimentions, Ball ball) {
         this.ball = ball;
         this.gameDimensions = new Dimension(gameDimentions);
+        originalBallPosition = ball.getCenter();
     }
     
     public void setScoreIncrementAmount(int newAmount){
@@ -47,6 +49,11 @@ public abstract class AbstractModel {
     
     public Dimension getGameDimensions(){
         return new Dimension(gameDimensions);
+    }
+    
+    public void resetBall(){
+        resetBallSpeed();
+        ball.setCenter(originalBallPosition.x, originalBallPosition.y);
     }
 
     public boolean isGameOver() {

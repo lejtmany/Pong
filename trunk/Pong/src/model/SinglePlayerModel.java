@@ -3,6 +3,7 @@ package model;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import static controller.BoardController.MILLISECONDS_IN_SECOND;
+import java.awt.Point;
 
 public class SinglePlayerModel extends AbstractModel implements IPongModelOnePlay{
 
@@ -57,7 +58,8 @@ public class SinglePlayerModel extends AbstractModel implements IPongModelOnePla
 
     @Override
     public void restart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        score = 0;
+        resetBall();
     }
 
     @Override

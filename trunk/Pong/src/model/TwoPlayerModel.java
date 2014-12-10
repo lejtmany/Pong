@@ -63,14 +63,6 @@ public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
         return playerScores[player.ordinal()];
     }
 
-//    private void resetBall(Paddle loser) {
-//        double startingX = (loser.isRightPaddle()) ? gameDimensions.width / 3 : (gameDimensions.width - gameDimensions.width / 3);
-//        ball.setCenter(startingX, (gameDimensions.height / 2));
-//        resetBallSpeed();
-//    }
-    
-    
-
     @Override
     public void movePaddle(PaddlePlayer player, Direction dir) {
         Paddle paddle = paddles[player.ordinal()];
@@ -78,10 +70,10 @@ public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
             paddle.move(dir);   
     }
 
-
     @Override
     public void restart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        playerScores = new int[2];
+        resetBall();
     }
 
     @Override
@@ -89,7 +81,7 @@ public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
         return paddles[player.ordinal()].getBody();
     }
     
-    
+   
     @Override
     public Rectangle[] getPaddles() {
         return new Rectangle[]{paddles[0].getBody(), paddles[1].getBody()};
