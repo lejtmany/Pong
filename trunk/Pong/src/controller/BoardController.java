@@ -15,8 +15,8 @@ abstract public class BoardController {
 
     protected final AbstractModel board;
     protected final PongGUI gui;
-    public static final int updateTimesPerSecond = 1000;
-    public static final long UPDATE_FREQUENCY = 1000 / updateTimesPerSecond;
+    public static final int MILLISECONDS_IN_SECOND = 1000;
+    public static final long UPDATE_FREQUENCY = 100 / MILLISECONDS_IN_SECOND;
     private final Timer gameLoop = new Timer();
     private Direction[] paddleDirections = new Direction[2];
 
@@ -59,7 +59,7 @@ abstract public class BoardController {
     protected abstract void updateScoreLabel();
 
     public int getUpdateTimesPerSecond() {
-        return updateTimesPerSecond;
+        return MILLISECONDS_IN_SECOND;
     }
 
     protected abstract void addPaddleKeyListeners();
