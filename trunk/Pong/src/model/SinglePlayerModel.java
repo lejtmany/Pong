@@ -2,8 +2,6 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import static controller.BoardController.MILLISECONDS_IN_SECONDS;
-import java.awt.Point;
 
 public class SinglePlayerModel extends AbstractModel implements IPongModelOnePlay{
 
@@ -16,8 +14,8 @@ public class SinglePlayerModel extends AbstractModel implements IPongModelOnePla
     }
     
     @Override
-    public void setPaddleSpeed(double pxlPerSec){
-        paddle.setSpeed(pxlPerSec/MILLISECONDS_IN_SECONDS);
+    public void setPaddleSpeed(double pxlPerMove){
+        paddle.setSpeed(pxlPerMove);   
     }
 
     @Override

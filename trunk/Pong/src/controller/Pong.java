@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.Dimension;
-import java.awt.HeadlessException;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -10,7 +9,6 @@ import javax.swing.JOptionPane;
 import model.Ball;
 import model.HighScoreRecordKeeper;
 import model.Paddle;
-import model.PaddlePlayer;
 import model.RecordKeeper;
 import model.SinglePlayerModel;
 import model.TwoPlayerModel;
@@ -24,10 +22,11 @@ public class Pong {
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = 1;
-    private double paddleDelta = 250.0;
+    public final int updatesPerSecond = 1000;
+    private final double paddleDelta = 250.0 / updatesPerSecond;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
-
+        
         SinglePlayerModel spb = new SinglePlayerModel(bounds, gameBall, paddle);
         PongGUI pongGui = new PongGUI(spb);
         RecordKeeper recordKeeper = null;
@@ -35,14 +34,19 @@ public class Pong {
 
         difficulty = getDifficulty();
 
-        spb.setDefaultBallSpeedFactor(
-                difficulty.getSpeedFactor()/BoardController.MILLISECONDS_IN_SECONDS);
+        spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor()/updatesPerSecond);
         spb.setPaddleSpeed(paddleDelta);
 
         recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
 
-        SinglePlayerController singlePlayerGame = new SinglePlayerController(spb, pongGui, recordKeeper);
+        SinglePlayerController singlePlayerGame =
+                new SinglePlayerController(spb, pongGui, recordKeeper, updatesPerSecond);
         singlePlayerGame.start();
+    }
+    
+        
+    public int getUpdatesPerSecond(){
+        return updatesPerSecond;
     }
 
     private Difficulty getDifficulty() {
@@ -69,7 +73,8 @@ public class Pong {
         TwoPlayerModel twoPlayerModel = new TwoPlayerModel(bounds, ball, paddles[0], paddles[1]);
         twoPlayerModel.setPaddleSpeed(paddleDelta);
         PongGUI pongGui = new PongGUI(twoPlayerModel);
-        TwoPlayerController twoPlayerGame = new TwoPlayerController(twoPlayerModel, pongGui);
+        TwoPlayerController twoPlayerGame =
+                new TwoPlayerController(twoPlayerModel, pongGui, updatesPerSecond);
         twoPlayerGame.start();
     }
 

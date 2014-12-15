@@ -3,7 +3,6 @@ package model;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
-import static controller.BoardController.UPDATE_FREQUENCY;
 import java.awt.Rectangle;
 
 public abstract class AbstractModel {
@@ -15,18 +14,18 @@ public abstract class AbstractModel {
     protected int scoreIncrementAmount = 1;
 
     protected boolean isGameOver;
-    
-    private final Point originalBallPosition;
     private Point oldCenterOfBall;
-    private double ballSpeedFactor = 100.0/UPDATE_FREQUENCY;
-    private double defaultBallSpeedFactor = 100.0/UPDATE_FREQUENCY;
-    private final double ballSpeedUpFactor = 1.0/UPDATE_FREQUENCY;
-
-
-    public AbstractModel(Dimension gameDimentions, Ball ball) {
+    private double ballSpeedFactor;
+    private double defaultBallSpeedFactor;
+    private double ballSpeedUpFactor;
+    private int updatesOffset = 1000;
+    
+    AbstractModel(Dimension gameDimentions, Ball ball) {
         this.ball = ball;
         this.gameDimensions = new Dimension(gameDimentions);
-        originalBallPosition = ball.getCenter();
+        ballSpeedFactor = 100.0 / updatesOffset;
+        defaultBallSpeedFactor = 100.0/ updatesOffset;
+        ballSpeedUpFactor = 1.0/ updatesOffset;
     }
     
     public void setScoreIncrementAmount(int newAmount){
@@ -53,7 +52,7 @@ public abstract class AbstractModel {
     
     public void resetBall(){
         resetBallSpeed();
-        ball.setCenter(originalBallPosition.x, originalBallPosition.y);
+        ball.setCenter(oldCenterOfBall.x, oldCenterOfBall.y);
     }
 
     public boolean isGameOver() {
@@ -72,7 +71,6 @@ public abstract class AbstractModel {
     
     protected void speedUpBallBy(double amount){
         ballSpeedFactor += amount;
-        //System.out.println("ballSpeedFactor = " + ballSpeedFactor);
     }
     protected void resetBallSpeed(){
         ballSpeedFactor = defaultBallSpeedFactor;
@@ -112,15 +110,14 @@ public abstract class AbstractModel {
     protected void onHitPaddle(){
         ball.setCenter(oldCenterOfBall.x, oldCenterOfBall.y);
         speedUpBallBy(ballSpeedUpFactor);
-        ball.setDeltaX( -ball.getDeltaX()); //negative
+        ball.setDeltaX( -ball.getDeltaX());
     }
 
 
     protected abstract void onHitLeftWall();
 
     protected void onHitHorizontalWall() {
-        ball.setDeltaY(
-                -ball.getDeltaY()); //negative
+        ball.setDeltaY(-ball.getDeltaY());
     }
 
     protected abstract void onHitRightWall();

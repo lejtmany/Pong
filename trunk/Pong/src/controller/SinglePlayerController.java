@@ -19,8 +19,11 @@ public class SinglePlayerController extends BoardController {
     private RecordKeeper recordKeeper;
     
 
-    public SinglePlayerController(SinglePlayerModel board, PongGUI gui, RecordKeeper recordKeeper) {
-        super(board, gui);
+    public SinglePlayerController(SinglePlayerModel board, 
+                                PongGUI gui,   
+                                RecordKeeper recordKeeper,
+                                int updatesPerSec) {
+        super(board, gui, updatesPerSec);
         this.board = board;
         this.recordKeeper = recordKeeper;
         
