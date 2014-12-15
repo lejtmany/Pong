@@ -17,8 +17,8 @@ public abstract class AbstractModel {
     private Point oldCenterOfBall;
     private double ballSpeedFactor;
     private double defaultBallSpeedFactor;
-    private double ballSpeedUpFactor;
-    private int updatesOffset = 1000;
+    private final double ballSpeedUpFactor;
+    private final int updatesOffset = 200;
     
     AbstractModel(Dimension gameDimentions, Ball ball) {
         this.ball = ball;
