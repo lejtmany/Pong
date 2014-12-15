@@ -14,7 +14,6 @@ import model.SinglePlayerModel;
 import model.TwoPlayerModel;
 import view.PongGUI;
 
-
 public class Pong {
 
     final private int ballRadius = 5;
@@ -26,7 +25,7 @@ public class Pong {
     private final double paddleDelta = 250.0 / updatesPerSecond;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
-        
+
         SinglePlayerModel spb = new SinglePlayerModel(bounds, gameBall, paddle);
         PongGUI pongGui = new PongGUI(spb);
         RecordKeeper recordKeeper = null;
@@ -34,18 +33,17 @@ public class Pong {
 
         difficulty = getDifficulty();
 
-        spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor()/updatesPerSecond);
+        spb.setDefaultBallSpeedFactor(difficulty.getSpeedFactor() / updatesPerSecond);
         spb.setPaddleSpeed(paddleDelta);
 
         recordKeeper = tryInitializeRecordKeeper(recordKeeper, difficulty);
 
-        SinglePlayerController singlePlayerGame =
-                new SinglePlayerController(spb, pongGui, recordKeeper, updatesPerSecond);
+        SinglePlayerController singlePlayerGame
+                = new SinglePlayerController(spb, pongGui, recordKeeper, updatesPerSecond);
         singlePlayerGame.start();
     }
-    
-        
-    public int getUpdatesPerSecond(){
+
+    public int getUpdatesPerSecond() {
         return updatesPerSecond;
     }
 
@@ -58,30 +56,36 @@ public class Pong {
         return difficulty;
     }
 
-    private RecordKeeper tryInitializeRecordKeeper(RecordKeeper recordKeeper, Difficulty difficulty) {
+    private RecordKeeper tryInitializeRecordKeeper(RecordKeeper recordKeeper,
+                                                    Difficulty difficulty) {
         try {
             recordKeeper = new HighScoreRecordKeeper(difficulty.getHighScoreFileName(), 3);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Unable to set up File I/O. No highscores.");
+            JOptionPane.showMessageDialog(null, 
+                        "Unable to set up File I/O. No highscores.");
         }
         return recordKeeper;
     }
 
-    private void playTwoPlayerGame(Dimension bounds, Ball ball, Paddle[] paddles) {
+    private void playTwoPlayerGame(Dimension bounds, Ball ball, Paddle[] paddles)
+    {
 
-        TwoPlayerModel twoPlayerModel = new TwoPlayerModel(bounds, ball, paddles[0], paddles[1]);
+        TwoPlayerModel twoPlayerModel = 
+                new TwoPlayerModel(bounds, ball, paddles[0], paddles[1]);
         twoPlayerModel.setPaddleSpeed(paddleDelta);
+        twoPlayerModel.setDefaultBallSpeedFactor(100.0 / updatesPerSecond);
         PongGUI pongGui = new PongGUI(twoPlayerModel);
-        TwoPlayerController twoPlayerGame =
-                new TwoPlayerController(twoPlayerModel, pongGui, updatesPerSecond);
+        TwoPlayerController twoPlayerGame
+                = new TwoPlayerController(twoPlayerModel, pongGui, updatesPerSecond);
         twoPlayerGame.start();
     }
 
     public void startGame() {
 
         Dimension gameBounds = new Dimension(500, 500);
-        Ball ball = new Ball(new Point(gameBounds.height / 2, gameBounds.height / 2), ballRadius);
+        Ball ball = new Ball(new Point(gameBounds.height / 2,
+                                        gameBounds.height / 2), ballRadius);
         int paddleOffWall = 20;
         ball.setDeltaX(ballDeltaX);
         ball.setDeltaY(ballDeltaY);
@@ -91,7 +95,9 @@ public class Pong {
         startGame(choice, gameBounds, ball, paddles);
     }
 
-    private void startGame(int choice, Dimension gameBounds, Ball ball, Paddle[] paddles) {
+    private void startGame(int choice, Dimension gameBounds, 
+                                            Ball ball, Paddle[] paddles) 
+    {
         switch (choice) {
             case 0:
                 playOnePlayerGame(gameBounds, ball, paddles[0]);
@@ -104,24 +110,26 @@ public class Pong {
 
     private int getGameType() {
         String[] options = {"One Player", "Two Player"};
-        int choice = JOptionPane.showOptionDialog(null, "One Player or Two?", "Game type",
+        int choice = JOptionPane.showOptionDialog(null,
+                "One Player or Two?", "Game type",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, null);
         return choice;
     }
 
-    private Paddle[] initializePaddleArray(int paddleOffWall, Dimension gameBounds) {
+    private Paddle[] initializePaddleArray(int paddleOffWall, Dimension gameBounds)
+    {
         Paddle[] paddles = new Paddle[2];
         paddles[0] = new Paddle(
-                new Point(paddleOffWall, 
+                new Point(paddleOffWall,
                         gameBounds.height / 2),
-                paddleLength, 
+                paddleLength,
                 paddleWidth);
         paddles[1] = new Paddle(
                 new Point(
                         gameBounds.width - (paddleOffWall + paddleWidth),
                         gameBounds.height / 2),
-                paddleLength, 
+                paddleLength,
                 paddleWidth);
         return paddles;
     }
