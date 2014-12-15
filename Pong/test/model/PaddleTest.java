@@ -17,14 +17,14 @@ public class PaddleTest {
     @Test
     public void testMoveDown() {
         defaultPaddle.setSpeed(1);
-        defaultPaddle.moveDown();
+        defaultPaddle.move(Direction.DOWN);
         assertEquals(2, defaultPaddle.getY());
     }
 
     @Test
     public void testMoveUp() {
         defaultPaddle.setSpeed(1);
-        defaultPaddle.moveUp();
+        defaultPaddle.move(Direction.UP);
         assertEquals(0, defaultPaddle.getY());
     }
     

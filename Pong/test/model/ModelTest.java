@@ -16,7 +16,7 @@ public class ModelTest {
         Ball ball = new Ball(new Point(11,10), 1, -1, 0);
         Paddle paddle = new Paddle(new Point(10,10), 5, 5);
         SinglePlayerModel spm = new SinglePlayerModel(new Dimension(500,500), ball, paddle);
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(1);
     }
     
@@ -25,7 +25,7 @@ public class ModelTest {
         Ball ball = new Ball(new Point(13,10), 1, -2, 0);
         Paddle paddle = new Paddle(new Point(10,10), 5, 5);
         SinglePlayerModel spm = new SinglePlayerModel(new Dimension(500,500), ball, paddle);
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(2);
         //test that doesn't flip again
         spm.updateBoard();
@@ -39,10 +39,10 @@ public class ModelTest {
         Ball ball = new Ball(new Point(16,10), 1, -10, 0);
         Paddle paddle = new Paddle(new Point(10,10), 5, 5);
         SinglePlayerModel spm = new SinglePlayerModel(new Dimension(500,500), ball, paddle);
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(-10);
         //test that doesn't flip again
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(-10);
     }
      
@@ -51,10 +51,10 @@ public class ModelTest {
         Ball ball = new Ball(new Point(11,9), 1, -1, 1);
         Paddle paddle = new Paddle(new Point(10,10), 5, 5);
         SinglePlayerModel spm = new SinglePlayerModel(new Dimension(500,500), ball, paddle);
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(1);
         //test that doesn't flip again
-        spm.updateBoard();
+        spm.updateBall();
         assertThat(ball.getDeltaX()).isEqualTo(1);
     }
     
