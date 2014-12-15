@@ -80,10 +80,10 @@ public class SinglePlayerController extends BoardController {
     }
     private String promptForPlayerName(){
         String playerName;
-        int maxInitialLength = 4;
+        int reqLength = 4;
         do{
             playerName = JOptionPane.showInputDialog("Please enter THREE initials: ");
-        }while(playerName == null || playerName.length() > maxInitialLength); //null check must come first to avoid nullpointer exception
+        }while(playerName == null || playerName.length() != reqLength); //null check must come first to avoid nullpointer exception
         return playerName;
     }
 

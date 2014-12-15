@@ -20,7 +20,8 @@ abstract public class BoardController {
     private final Timer gameLoop = new Timer();
     private final Direction[] paddleDirections = new Direction[2];
 
-    public BoardController(AbstractModel board, PongGUI gui, int updatesPerSec) {
+    public BoardController(AbstractModel board, PongGUI gui, int updatesPerSec)
+    {
         this.board = board;
         this.gui = gui;
         updatesPerSecond = updatesPerSec;
@@ -70,7 +71,8 @@ abstract public class BoardController {
 
     protected abstract void addPaddleKeyListeners();
 
-    protected KeyListener generatePaddleKeyListeners(PaddlePlayer paddle, int upKey, int downKey) {
+    protected KeyListener generatePaddleKeyListeners(PaddlePlayer paddle,
+                                                    int upKey, int downKey) {
         return new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
