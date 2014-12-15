@@ -1,8 +1,6 @@
 package controller;
 
 import java.awt.event.KeyEvent;
-import model.Direction;
-import model.Paddle;
 import model.PaddlePlayer;
 import model.TwoPlayerModel;
 import view.PongGUI;
@@ -11,8 +9,10 @@ public class TwoPlayerController extends BoardController{
     
     private TwoPlayerModel board;
 
-    public TwoPlayerController(TwoPlayerModel board, PongGUI gui) {
-        super(board, gui);
+    public TwoPlayerController(TwoPlayerModel board, 
+                                PongGUI gui,
+                                int updatesPerSec) {
+        super(board, gui, updatesPerSec);
         this.board = board;
         addPaddleKeyListeners();
     }

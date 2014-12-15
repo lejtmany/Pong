@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import static controller.BoardController.MILLISECONDS_IN_SECONDS;
 
 public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
 
@@ -22,10 +21,10 @@ public class TwoPlayerModel extends AbstractModel implements IPongModelTwoPlay{
     }
     
     @Override
-    public void setPaddleSpeed(double pxlPerSec){
+    public void setPaddleSpeed(double pxlPerMove){
         for(Paddle p : paddles){
             if(p != null)
-                p.setSpeed(pxlPerSec/MILLISECONDS_IN_SECONDS);
+                p.setSpeed(pxlPerMove);    
         }
     }
 
