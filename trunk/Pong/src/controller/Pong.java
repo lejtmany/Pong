@@ -22,7 +22,7 @@ public class Pong {
     final private int paddleWidth = 5;
     final private double ballDeltaX = 1;
     final private double ballDeltaY = 1;
-    public final int updatesPerSecond = 1000;
+    public final int updatesPerSecond = 200;
     private final double paddleDelta = 250.0 / updatesPerSecond;
 
     public void playOnePlayerGame(Dimension bounds, Ball gameBall, Paddle paddle) {
